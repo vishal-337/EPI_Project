@@ -35,6 +35,10 @@ pdmp_var = pdmp_var.rename(columns={"Jurisdictions": "STATE_NAME"})
 pdmp_var["Effective Date"] = pd.to_datetime(pdmp_var["Effective Date"], errors="coerce")
 pdmp_var["Valid Through Date"] = pd.to_datetime(pdmp_var["Valid Through Date"], errors="coerce")
 
+# FIX 1: The dataset is cut off at 2016-07-01. We assume policies active then are still active.
+cutoff_date = pd.Timestamp("2016-07-01")
+pdmp_var.loc[pdmp_var["Valid Through Date"] == cutoff_date, "Valid Through Date"] = pd.NaT
+
 flag_cols = [c for c in pdmp_var.columns if c not in ["STATE_NAME", "Effective Date", "Valid Through Date"]]
 for c in flag_cols:
     pdmp_var[c] = pd.to_numeric(pdmp_var[c], errors="coerce").fillna(0).astype(int)
@@ -47,9 +51,16 @@ for _, r in pdmp_var.iterrows():
     end = r["Valid Through Date"]
     y0 = int(start.year) if pd.notnull(start) else None
     y1 = int(end.year) if pd.notnull(end) else None
+    
     if y0 is None:
         continue
-    ys = years_all if y1 is None else [y for y in years_all if y >= y0 and y <= y1]
+        
+    # FIX 2: Correctly handle open-ended policies (y1 is None) by respecting the start year (y0)
+    if y1 is None:
+        ys = [y for y in years_all if y >= y0]
+    else:
+        ys = [y for y in years_all if y >= y0 and y <= y1]
+        
     for y in ys:
         rows.append((s, y, r[flag_cols].values))
 
