@@ -1,0 +1,303 @@
+%% This is file `sample-sigconf.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% samples.dtx  (with options: `all,proceedings,bibtex,sigconf')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from sample-sigconf.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file samples.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%%
+%% Commands for TeXCount
+%TC:macro \cite [option:text,text]
+%TC:macro \citep [option:text,text]
+%TC:macro \citet [option:text,text]
+%TC:envir table 0 1
+%TC:envir table* 0 1
+%TC:envir tabular [ignore] word
+%TC:envir displaymath 0 word
+%TC:envir math 0 word
+%TC:envir comment 0 0
+%%
+%% The first command in your LaTeX source must be the \documentclass
+%% command.
+%%
+%% For submission and review of your manuscript please change the
+%% command to \documentclass[manuscript, screen, review]{acmart}.
+%%
+%% When submitting camera ready or to TAPS, please change the command
+%% to \documentclass[sigconf]{acmart} or whichever template is required
+%% for your publication.
+%%
+%%
+
+
+\documentclass[sigconf]{acmart}
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\settopmatter{printacmref=false}
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+\setcopyright{none}      % remove ACM rights/permissions text
+\settopmatter{printacmref=false} % hide "ACM Reference Format"
+\acmDOI{}                % clear DOI line
+\acmISBN{}               % clear ISBN line
+\acmPrice{}              % clear price line (if any)
+
+%% These commands are for a PROCEEDINGS abstract or paper.
+\acmConference[]{}{June 03--05,
+  2018}{Woodstock, NY}
+%%
+%%  Uncomment \acmBooktitle if the title of the proceedings is different
+%%  from ``Proceedings of ...''!
+%%
+%%\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
+%%  June 03--05, 2018, Woodstock, NY}
+\acmISBN{978-1-4503-XXXX-X/2018/06}
+
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% For managing citations, it is recommended to use bibliography
+%% files in BibTeX format.
+%%
+%% You can then either use BibTeX with the ACM-Reference-Format style,
+%% or BibLaTeX with the acmnumeric or acmauthoryear sytles, that include
+%% support for advanced citation of software artefact from the
+%% biblatex-software package, also separately available on CTAN.
+%%
+%% Look at the sample-*-biblatex.tex files for templates showcasing
+%% the biblatex styles.
+%%
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+\title{Modeling the Opioid Prescription Epidemic as a Clinical Practice Contagion}
+
+%%
+%% The "author" command and its associated commands are used to define
+%% the authors and their affiliations.
+%% Of note is the shared affiliation of the first two authors, and the
+%% "authornote" and "authornotemark" commands
+%% used to denote shared contribution to the research.
+
+
+
+
+\author{Vishal Maradana}
+\affiliation{%
+  \institution{Georgia Institute of Technology}
+  \city{Atlanta,GA}
+  \country{United States}}
+\email{vmaradana3@gatech.edu}
+
+\author{Rishi Bandi}
+\affiliation{%
+  \institution{Georgia Institute of Technology}
+  \city{Atlanta,GA}
+  \country{United States}}
+\email{rbandi6@gatech.edu}
+
+%%
+%% By default, the full list of authors will be used in the page
+%% headers. Often, this list is too long, and will overlap
+%% other information printed in the page headers. This command allows
+%% the author to define a more concise list
+%% of authors' names for this purpose.
+\renewcommand{\shortauthors}{Trovato et al.}
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+\begin{abstract}
+This project treats high-rate opioid prescribing as a behavior that may diffuse across U.S. states through professional norms, policy signals, and information flows. Using publicly available state-level dispensing data and policy timelines, we will infer a directed influence network among states, identify historically influential “spreaders,” and run what-if intervention simulations to estimate how targeted policies might have altered trajectories. We validate the approach against held-out years and interpret results alongside evidence on Prescription Drug Monitoring Programs (PDMPs).
+
+\end{abstract}
+
+%%
+%% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+%% Please copy and paste the code instead of the example below.
+%%
+
+
+
+
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+
+%% A "teaser" image appears between the author and affiliation
+%% information and the body of the document, and typically spans the
+%% page.
+\begin{teaserfigure}
+
+  \includegraphics[width=\textwidth]{opiod.png}
+  \caption{Seattle Mariners at Spring Training, 2010.}
+  \Description{Enjoying the baseball game from the third-base
+  seats. Ichiro Suzuki preparing to bat.}
+  \label{fig:teaser}
+\end{teaserfigure}
+
+\received{20 February 2007}
+\received[revised]{12 March 2009}
+\received[accepted]{5 June 2009}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+\maketitle
+
+% CLAUDE-PRINT: Added Introduction section to address feedback point 1
+\section{Introduction}
+Prescription opioids are a major factor in the rise and persistence of the opioid crisis in the United States, which is one of the worst public health problems of the twenty-first century. A growing body of research indicates that prescribing practices may also spread through professional networks, policy signals, and institutional norms, even when individual prescribing decisions are driven by clinical guidelines and patient requirements. This poses an important question: is it possible to think of high-rate opioid prescribing as an infectious behaviour that spreads across national borders?
+
+
+This study examines increased opioid prescribing as a practice contagion that could spread across states in the United States due to interrelated professional and legislative effects. We create a network inference method to determine which states have historically persuaded others to adopt high-prescribing practices using state-level dispensing data and policy dates. In order to evaluate how focused methods might have changed national trajectories, our method builds a directed influence network from historical precedence patterns, ranks states according to their propensity for spreading, and simulates counterfactual policy interventions. This work provides a data-driven approach for comprehending how prescribing behaviours spread and where interventions might be most successful by bridging the gap between diffusion modelling and public health policy evaluation.
+
+% CLAUDE-PRINT: Added Response to Proposal Feedback section to address all 5 feedback points
+\section{Response to Proposal Feedback}
+
+ \textbf{1. Introduction Section:} Before presenting related work, we have reorganised the paper to include a distinct Introduction section that explains the research challenge, its importance in relation to the opioid crisis, and our methodological approach.
+
+\textbf{2. Related Work Refinement:} By grouping the literature into specific themes (diffusion algorithms, network inference, opioid applications), eliminating superfluous descriptions, and adding clear gap analysis that supports our methodology, we have distilled the associated work. Instead of offering thorough overview, the section now focusses on how each work directly influences our methods.
+
+\textbf{3. State-Level Data Justification:} Since PDMPs are state-regulated, we recognise the limitations of state-level aggregation while offering a convincing argument: (i) state-level analysis is consistent with the scale of policy implementation; (ii) it makes network inference across all 50 states computationally tractable; and (iii) it permits comparison with current state-level policy interventions. In order to capture intra-state variation, future research will investigate county-level extensions.
+
+\textbf{4. Downstream Applications:}We have included forecasting validation (training from 2006 to 2012, testing from 2013 to 2018), policy impact assessment, and a discussion of real-time surveillance applications to our evaluation methodology. Public health officials can assess targeting tactics with the use of our intervention simulations, which offer tangible decision support measures.
+
+\textbf{5. Early Hypothesis Testing:} Temporal consistency tests, policy alignment checks comparing network-identified influential states with recognised policy leaders, baseline model comparisons, and robustness analysis across various thresholds and time periods are some of the basic validation methods we have put in place. Prior to complete deployment, these tests show methodological validity.
+
+\section{Related Work}
+Work on diffusion and influence in networks provides the conceptual and algorithmic backbone for our project. Kempe, Kleinberg, and Tardos\cite{Kempe2003KDD} formalized two now-canonical generative views of spread—the Independent Cascade (IC) and Linear Threshold (LT) models—and showed that choosing seed nodes to maximize downstream adoptions is NP-hard, but admits a tight greedy approximation because the expected influence function is submodular under IC and LT. Their formulation supplies two strengths we can leverage: (i) an explicit, step-by-step account of contagion dynamics (rather than a purely correlational view of co-occurrence), and (ii) a rigorous optimization lens with performance guarantees, which also clarifies why naïve structural heuristics (high degree, centrality) can perform poorly when they ignore redundancy and diminishing returns among targets. At the same time, the Kempe framework presumes a known network and focuses on forward optimization (who to seed) rather than inverse inference (who influenced whom), and their experiments rely on proxy graphs rather than observed transmission networks, leaving open how to recover influence structure from aggregated, real-world “adoption times.” These trade-offs motivate our emphasis on inferring a directed inter-state influence network from timing data before we evaluate targeting or simulate interventions.
+
+That inverse problem is addressed directly by NETINF, which assumes many cascades propagate over an unobserved, static network and seeks the directed edges that best explain observed infection times \cite{GomezRodriguez2010NetInf}. Its central strengths are a generative likelihood over propagation trees and a scalable, near-optimal approximation to an otherwise intractable objective, demonstrated on massive web/media cascades where it recovers a core-periphery structure among news sites \cite{GomezRodriguez2010NetInf}. This establishes a rigorous bridge from when nodes adopt to which edges likely transmitted the contagion. For a public-health application like ours, however, NETINF’s assumptions matter: tree-structured cascades assign a single parent per adoption; networks are fixed; and multiple distinct contagions provide repeated evidence. In statewide opioid prescribing, we observe one annual outcome stream rather than many independent memes, and cyclical or reciprocal pathways are plausible. Consequently, we intend to adopt NETINF’s timing-to-edges intuition but favor a transparent, count-based construction (who was high before whom) that can trade some statistical efficiency for policy readability and robustness checks, while still rooting the approach in the cascade logic introduced by \cite{GomezRodriguez2010NetInf}.
+
+Moving from algorithms to public-health networks, Kaminski et al. build a provider network for Indiana by projecting shared-patient (opioid co-prescription) ties and recovering data-driven professional communities with the Leiden algorithm \cite{Kaminski2023HRJ}. They compare these communities to administratively defined Public Health Preparedness Districts (PHPDs) and show that alignment varies substantially; in some regions the match is high, in others low, implying that district-based messaging can both overreach and miss key prescribers \cite{Kaminski2023HRJ}. The strength here is empirical specificity: rather than assuming geography captures influence, the paper demonstrates where clinical relationship networks suggest different targeting boundaries. A second strength is outcome relevance: they compare whether PHPDs or network communities better “concentrate” opioid-relevant indicators such as OUD diagnoses, MME, and overdose diagnoses, making the case that network-aware delivery may improve precision \cite{Kaminski2023HRJ}. The limitations for our setting are scope and dynamics. The analysis is single-state, clinician-level, and primarily cross-sectional/descriptive about where to target, not about the temporal mechanics of who crosses a behavioral threshold because of whom. Our work can complement \cite{Kaminski2023HRJ} by moving to the state level, reconstructing directed, time-ordered influence between jurisdictions, and then testing intervention timing scenarios.
+
+O’Malley et al. deepen the mechanism story by quantifying risky-prescribing behaviors within shared-patient physician networks and by proposing supra-dyadic (triadic) statistics and non-parametric tests to detect homophily beyond pairs \cite{Ran2024ANS}. They also introduce physician-level state-transition indices—capturing both prescribing and deprescribing—to attribute responsibility and to construct node attributes for modeling \cite{Ran2024ANS}. Two strengths stand out for our project. First, they demonstrate that risky-prescribing homophily appears at the triadic level, not just dyads, with specialty assortativity and regional variation, suggesting that local norms and clustered structures help sustain behavior \cite{Ran2024ANS}. This substantiates our behavioral-contagion framing and cautions against interventions that focus solely on single “hubs.” Second, their pragmatic data engineering (transition matrices, deprescribing attribution) showcases how to extract policy-relevant signals from claims. Limitations relative to our aims include reliance on a single-year Medicare sample and focus on clinician-to-clinician ties without explicit counterfactual policy simulations. We plan to incorporate the lessons qualitatively—acknowledging clustering and multiple channels of reinforcement—while operating at the jurisdictional scale with multi-year trajectories and explicit “what-if” interventions.
+
+Viewed together, these strands suggest a coherent path for our study. The diffusion mechanics and submodular perspective from \cite{Kempe2003KDD} clarify why targeting a small set of actors can be principled rather than heuristic and provide natural ablations to compare eigenvector-based targeting against simpler degree rules. The inverse-inference lens from \cite{GomezRodriguez2010NetInf} shows how adoption timing can reveal hidden edges, motivating our simpler but interpretable timing-aggregation network when only a single, annual behavioral cascade is available. The targeting mismatch highlighted by \cite{Kaminski2023HRJ} warns that geography is an imperfect proxy for influence; by elevating to the state level and building a directed influence graph, we can transpose their “communities vs. districts” insight into “influence pathways vs. borders,” asking which jurisdictions have historically nudged others over high-prescribing thresholds. The supra-dyadic clustering in \cite{Ran2024ANS} then argues for evaluating influential sets rather than singletons and for testing whether intervention effects persist when influence resides in tightly knit clusters rather than star-shaped hubs.
+
+This synthesis also surfaces gaps we can address. First, while \cite{Kempe2003KDD} and \cite{GomezRodriguez2010NetInf} come with guarantees and likelihoods, respectively, their assumptions (known graph; many independent cascades; tree-structured diffusion) fit large online settings better than annual, macro-level clinical practice shifts. We will therefore keep the core logic—time-ordered spread and diminishing returns—but use a transparent construction with sensitivity analyses around thresholds and centrality choices. Second, whereas \cite{Kaminski2023HRJ} and \cite{Ran2024ANS} convincingly demonstrate that real clinical ties and homophily shape where and how prescribing clusters, neither paper links those structures to policy-timed counterfactuals at jurisdictional scale. Our contribution will be to anchor intervention timing in external policy chronologies while using a diffusion-consistent network to examine how targeting influential states at realistic dates might have changed the trajectory. Finally, all four lines of work implicitly caution against overclaiming causality: influence edges inferred from timing or topology reflect directional hypotheses, not proof. We will therefore position our results as hypothesis-generating but decision-relevant, with clear caveats and robustness checks.
+
+% CLAUDE-PRINT: Condensed Related Work section - removed least relevant content
+Recent work continues to expand network applications to opioid prescribing. \cite{Yang2022JBI} found that bipartite-aware centrality measures outperform traditional algorithms in detecting high-risk prescribing patterns when incorporating drug potency measures. Policy-focused assessments demonstrate that network-targeted interventions at prescriber and clinic levels result in quantifiable decreases in opioid prescribing. However, cross-state data integration and PDMP interoperability challenges still restrict real-time operational use of these network models for public health decision-making.
+
+
+% CLAUDE-PRINT: Updated Problem Definition section to match provided content
+\section{Problem Definition}
+Our goal is to determine if high opioid prescribing behaves like a practice that spreads throughout U.S. states due to policy and professional influence rather than emerging on its own.  In practical terms, socially or institutionally related states may be more likely to become high later if one state's prescription remains high; if this is the case, concentrating on a few key states could change the course of the country.  Formally speaking, we will use clear, CDC-anchored cutoffs to determine the first year a state falls into a "high" category, treating each state as a node with a yearly prescribing rate. From the year-to-year ordering of these entries, we will infer a directed, weighted influence network that summarizes who tended to precede whom, produce a ranking of influential states, and simulate policy scenarios in which selected states no longer propagate influence after realistic start years.
+
+
+\section{Techniques}
+We'll use timing to create an understandable influence graph. Every year, we record a probable A→B influence event if State A is already in the "high prescribing" category and State B is added to that category the following year. When these events are aggregated across time, directed edges with strengths proportionate to their empirical support are produced. We will test many "high" criteria anchored to CDC reporting, remove edges that occur infrequently compared to their opportunities, and bootstrap years to create uncertainty bands on edge strengths in order to reduce noise. The end product is a clear, policy-readable network that shows who tends to come before whom.
+
+Eigenvector centrality, which rewards nodes related to other influential nodes and is ideal for cascade behaviours, will be the main method used to rank states on the inferred graph.  We will compare ranks against degree (simple, exposure-based) and betweenness (bridge-based) centralities, noting where measures concur or differ, in order to assess robustness and interpretability.  Stable top-k sets spanning bootstrapped graphs, edge-support cutoffs, and thresholds will be reported.  This triangulation protects against relying too much on any one parameter and produces a short list of states that are likely to amplify or transmit high-prescribing behaviours across the network.
+
+In order to compare a baseline with focused treatments, we will model trajectories on this network.  Susceptible states can activate based on incoming edge strengths as the baseline progresses year by year, starting with states that were seen to be "high" in an early year.  Intervention runs re-simulate and change a subset of the top-ranked states to non-influential from policy-plausible years onwards (e.g., aligned with PDMP mandates).  With uncertainty from bootstrap replicates, we will summarise results as annual counts of high states, overlap with past high-state sets, and changes between baseline and intervention curves.
+% CLAUDE-PRINT: Updated Evaluation plan section to match provided content
+\section{Evaluation plan}
+We will evaluate the strategy not only on how well it fits history, but also on how well it can replay and rationally extend it. In order to compare the trajectory of high-prescribing states with actual events, we will first train the influence network on an early slice of the series and then simulate the following time. Each year, a predetermined overlap between simulated and observed high states will be used to summarise accuracy using simple error metrics. We will utilise straightforward baselines—a carry-forward trend without a network and an independent per-state model that disregards cross-state influence—to prevent flattering comparisons.Robustness will be checked by varying the threshold that defines "high," pruning weak edges with little support, swapping the centrality metric used for targeting, and shifting the initialization window; we will report where conclusions stay stable and where they do not. Uncertainty will be shown with bootstrap resampling so readers can see plausible ranges, not just single lines. For policy realism, intervention start years will be aligned with documented policy timelines, and we will discuss where simulated changes line up with the literature and where they diverge. Success means lower error than baselines, stable influential-state rankings across reasonable choices, and intervention curves that are consistent with policy timing and domain knowledge.
+
+\section{Data Collection and Preprocessing}
+Opioid dispensing data came from the CDC’s public resources. Historical 2006–2018 data were collected by scraping archived pages from the CDC’s drug overdose prevention website. We accessed archived pages for each year from 2006 to 2018. For each year, we downloaded the HTML, located the table of state-level dispensing rates, and extracted state names, abbreviations, and rates per 100 people. Since state abbreviations aren’t standardized for merging, we mapped them to FIPS codes using a lookup table (all 50 states plus DC). After collecting each year, we waited one second between requests to avoid overloading servers. The process included error handling; if a page wasn’t found or the connection failed, we logged the issue and continued. By the end, we had a dataset with over a decade of state-level dispensing rates, ready for analysis.
+
+More recent state-level dispensing data (2019–2023) came directly from the \href{https://www.cdc.gov/overdose-prevention/data-research/facts-stats/opioid-dispensing-rate-maps.html}{CDC’s Opioid Dispensing Rate Maps page}, which provides downloadable tables. County-level rates were also available from the same source, covering approximately 98\% of U.S. counties.
+
+Policy data came from the Prescription Drug Abuse Policy System (PDAPS), a legal research database. Two datasets were downloaded from their \href{https://pdaps.org/datasets/prescription-monitoring-program-laws-1408223416-1502818373}{PDMP Reporting and Authorized Use dataset page}: one with implementation dates for PDMP programs (enactment, operation, access), and another with time-varying policy features such as mandatory reporting requirements, authorized user categories, and data-sharing provisions. These datasets cover legal changes from 1998 through 2016, with some updates extending to 2022.
+
+Preprocessing involved two parallel tracks. For the dispensing data, we merged the scraped historical panel (2006–2018) with the more recent data (2019–2023). Column names differed between sources, so we standardized them to common fields: year, state name, state abbreviation, FIPS code, and dispensing rate. Both datasets included a "United States" aggregate row, which we removed so analyses focus on states. Dispensing rates were sometimes stored as text , so we converted them to numbers; any unparseable values became missing and were handled later. We combined both datasets, sorted by state and year, and removed duplicate state-year entries, keeping the most recent record when duplicates existed. This produced a unified panel spanning 2006–2023 with one row per state per year.
+
+For the policy data, we handled dates and categorical flags. The dates dataset included several date columns (enactment, operation, access), stored as strings in various formats. We converted these to date objects, extracted year components, and created separate year columns for each milestone. The reporting and authorized use dataset included effective start and end dates for each policy, plus many yes/no flags. We expanded each policy record to one row per state per year within its effective range, creating annual indicators. When multiple policy segments overlapped for a state-year, we took the maximum (so if any segment indicated a policy was active, we recorded it as active). All policy flags were converted to 0 or 1, with missing values treated as 0. Finally, we matched state names between the policy and dispensing datasets and merged on state identifiers, creating a unified policy timeline aligned with the dispensing panel.
+
+The final step was integrating both datasets by merging on state and year, producing a master dataset that links dispensing rates to the policy environment for each state in each year, ready for modeling and analysis.
+
+\section{Initial findings and Summary statistics}
+
+The consolidated datasets show clear patterns in opioid prescribing across the United States. The state-level dispensing panel covers 2006–2023 with 918 observations across 51 states, providing an 18-year panel.
+A pronounced national decline appears. Early years (2006–2012) saw the highest rates. West Virginia peaked at 145.5 prescriptions per 100 persons in 2008, and several Southern states exceeded 130, including Tennessee (140.0 in 2010), Alabama (136.6 in 2011), and Oklahoma (127.4 in 2012). By 2023, rates had fallen across all states. Hawaii (22.6), California (23.8), and New York (26.3) had the lowest, while Southern states remained highest, though far below earlier peaks—Arkansas (71.5) and Alabama (71.4) were the highest in 2023.
+
+Geographic patterns are clear. Using the CDC threshold of 51.7 prescriptions per 100 persons to define high prescribing, Southern states consistently ranked highest, with Alabama, Arkansas, Mississippi, Louisiana, Tennessee, and Kentucky above the threshold in most early years. Northeastern and Western states generally had lower rates, with Hawaii, California, New Jersey, and New York consistently among the lowest.
+Temporal analysis shows the decline accelerated after 2012, aligning with increased policy focus and CDC guidance. Many states transitioned from high to low status during this period. The county-level data reveals within-state variation, with rural and certain metropolitan counties often showing higher rates than state averages.
+The policy dataset includes yearly indicators from PDMP implementation and reporting requirements. Most states implemented PDMPs between 1998 and 2017, and the timing and features of these programs varied substantially, allowing analysis of how policy interventions may have influenced prescribing trends.
+
+\section{Current Implementation}
+Our implementation started by identifying high-prescribing states each year. Using the CDC threshold of 51.7 prescriptions per 100 persons, we compare each state's rate to this cutoff. For each state-year, we assign a binary flag: 1 if the rate exceeds 51.7, 0 otherwise. This produces a timeline showing when states entered and sometimes exited high status. We then compute each state's adoption year by finding the minimum year where the flag equals 1, indicating when that state first crossed the threshold. Results show most states adopted in 2006, with a few later adopters: California and Minnesota in 2007, South Dakota in 2008, and New York in 2012. Some jurisdictions, including Hawaii and the District of Columbia, never reached high status during the study period.
+To build the influence network, we analyze year-to-year transitions using set operations and filtering. For each consecutive year pair, we compare the set of high states at year t with the set of high states at year t+1. The algorithm identifies two groups: source states (high in year t) and new adopters (high in year t+1 but not in year t). We then generate directed edges from every source state to every new adopter, representing potential influence relationships. These edges accumulate weights through a counting mechanism: each time a specific source-target pair appears in a year transition, we increment its weight. This weighted accumulation allows us to distinguish between connections that occur once versus those that appear repeatedly across multiple years, suggesting stronger or more consistent influence patterns.
+
+The edge construction process uses intersection and filtering operations to efficiently identify new adopters. Specifically, we find states present in both years, filter for those that were high in the current year but not in the previous year, and then create connections from all existing high states to these new adopters. This approach captures temporal precedence—if state A was already high when state B newly becomes high, we record this as a potential influence event. The algorithm iterates through all year pairs from 2006 to 2023, systematically building the network by accumulating edge weights.
+
+For visualization, we use graph algorithms to create a readable network diagram. We calculate out-strength for each node by summing the weights of all outgoing edges, which measures how many states a particular state potentially influenced and how frequently. Node sizes are scaled proportionally to out-strength, making highly connected states visually prominent. Edge widths are scaled based on edge weights, so thicker lines indicate stronger or more frequent connections. The graph layout uses a spring-embedded algorithm that positions nodes based on their connections, pushing connected nodes closer together while keeping unconnected nodes farther apart. This creates a layout where the spatial arrangement reveals clusters and central nodes that may serve as important hubs in the influence network.
+
+The visualization reveals patterns where early-adopting states tend to connect to later adopters, with node sizes and edge thicknesses reflecting the magnitude of potential influence. States that became high early and remained high for multiple years often have larger node sizes, suggesting they may have served as persistent sources of exposure for states that adopted later in the timeline.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{influence_network.png}
+    \caption{Initial state opioid prescribing influence network.}
+    \label{fig:placeholder}
+\end{figure}
+
+\section{Future Work Plan}
+Future research will extend this state-level opioid dispersion analysis into a multi-scale, real-time surveillance and intervention platform, building on the thorough 8-phase implementation methodology.  In order to capture intra-state variation, especially the urban-rural prescription disparities noted in reviewer feedback, the immediate next phase will involve scaling down to county-level granularity.  After that, provider-level shared patient networks will be integrated to produce hierarchical impact models that span individual prescribers, counties, and states.  Creating dynamic network models that go beyond the present static annual snapshots and reflect time-varying influence strengths and seasonal prescribing patterns will be a crucial step forward.  The approach will be expanded to multi-drug analysis, examining poly-prescribing influence patterns and how prescribing contagion functions across several controlled substances (stimulants, benzodiazepines). Future research will use instrumental variable methodologies for more reliable causal inference and quasi-experimental designs that take advantage of natural policy variances in PDMP rollout time among states in order to address concerns about causation. By integrating real-time early warning systems with the current PDMP infrastructure, the ultimate goal is to move from retrospective analysis to prospective application, giving public health authorities network-informed intervention targeting capabilities. As a result of this evolution, the current research framework will become an operational decision-support tool capable of identifying new hotspots for prescription drug use, allocating intervention resources optimally, and assessing the efficacy of policies through ongoing feedback loops, ultimately leading to more accurate and successful responses to prescription drug epidemics.
+\section{Contribution}
+This project was done by Vishal Maradana and Rishi Bandi. Vishal focused on data acquisition (scraping, merging) and building the core network construction algorithm. Rishi handled the policy and county data integration, defined the "high-prescribing" adoption threshold, and created the network visualizations. Both members contributed equally to the project's design and this report.
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{name}
+
+
+%%
+%% If your work has an appendix, this is the place to put it.
+\appendix
+
+
+\end{document}
+\endinput
+%%%    
