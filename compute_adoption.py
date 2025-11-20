@@ -12,7 +12,7 @@ df = pd.read_csv(src)
 df = df.dropna(subset=["YEAR", "STATE_ABBREV", "opioid_dispensing_rate"]).copy()
 df["YEAR"] = df["YEAR"].astype(int)
 
-thr = 51.7
+thr = 85.0
 
 df = df.sort_values(["STATE_ABBREV", "YEAR"]).reset_index(drop=True)
 df["is_high"] = (df["opioid_dispensing_rate"] > thr).astype(int)

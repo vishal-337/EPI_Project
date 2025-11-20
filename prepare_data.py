@@ -86,7 +86,7 @@ pdmp_yearly.to_csv(os.path.join(PROC, "pdmp_yearly.csv"), index=False)
 
 panel = cdc_all.merge(pdmp_yearly, on=["STATE_NAME", "STATE_ABBREV", "YEAR"], how="left")
 
-thr = 51.7
+thr = 85.0
 panel["is_high"] = (panel["opioid_dispensing_rate"] > thr).astype(int)
 panel = panel.sort_values(["STATE_ABBREV", "YEAR"]).reset_index(drop=True)
 adoption = panel.groupby("STATE_ABBREV").apply(lambda df: df.loc[df["is_high"].diff().fillna(df["is_high"]).gt(0) | ((df["is_high"]==1) & (df["is_high"].shift(1).fillna(0)==0)), "YEAR"].min()).rename("adoption_year").reset_index()

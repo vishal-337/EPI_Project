@@ -1,0 +1,479 @@
+The Unhealthy Rise in Unnecessary C-sections
+Meghan Meredith
+mmeredith8@gatech.edu
+Georgia Institute of Technology
+Stewart School of Industrial and Systems Engineering
+Atlanta, Georgia, USA
+Swethasree Bhattaram
+sbhattaram6@gatech.edu
+Georgia Institute of Technology
+School of Computational Sciences and Engineering
+Atlanta, Georgia, USA
+Figure 1: Primary Low-Risk c-section Rate by State, dashboard slider created from CDC WONDER Database. Our project website
+contains an interactive slider for the users to explore.
+ABSTRACT
+The rise in the number of low-risk c-sections has been a concerning
+health phenomenon. The goal of this project was to understand the
+correlation between the rises of these rates in different parts of the
+United States, by collectively looking at the chronological order in
+which the rates occurred, and building a network to understand the
+influence of one state’s rate on another’s. The model was calibrated
+to CDC data and was used to formulate interventions that would
+bring down the rates of c-sections within the healthy range. We
+hypothesized that the reason for the rise of low-risk c-sections is
+caused by changes in practices in guidelines in one state impacting
+the behaviors of hospitals in neighboring states. We determined
+that Oklahoma and California were the most influential states and
+that intervening in these states did not have a large impact on other
+states. This is likely due to our network being highly connected.
+1 INTRODUCTION
+The rate of c-section increased every year from 1996 (20.7%) to 2009
+(32.9%) and has plateaued since [19]. In 2020, 31.8% of women who
+gave birth in the United States did so by c-section [19] . Although csection can be lifesaving for the fetus, the mother, or both in certain
+cases, the rapid increase in the rate of c-section births without
+evident decreases in maternal or neonatal morbidity or mortality
+raises significant concern that c-section is overused [8]. Increases
+in primary c-sections in cases of “no indicated risk” have been
+more rapid than in the overall population and are likely due to
+changes in obstetric practice rather than changes in the medical
+risk profile [12]. The US has proposed a "Healthy People 2030"
+goal of reducing the national primary c-section rate to 23.6%. [16].
+Further, it has been shown that an optimal c-section rate may be
+closer to 15% − 19% [14]. Therefore, it is important for health care
+providers and hospital systems to safely and appropriately prevent
+overuse of c-section, particularly primary and low-risk c-section
+[4].
+The c-section rate is not homogeneous across the US, it ranged
+from 22.9% in Alaska to 38.2% in Mississippi [7] in 2020. Studies
+have found a 10-fold variation in the c-section rate across hospitals
+in the US, and a 15-fold variation in the low-risk c-section rate
+(2.4% − 36.5%) [11]. Moreover, it has been consistently found that
+maternal characteristics do not fully account for the increase in
+CSE 8803 - EPI, Fall 2022, December 1, 2022,
+Meredith and Bhattaram
+c-section rate [6, 21]. These findings suggest that other potentially
+modifiable factors, such as practice variation, likely contribute to
+high c-section rates [4].
+We hypothesized that a contributing factor to the rise in csections can be attributed to an information and clinical practice
+behavior spread between regions and through clinical guidelines,
+or the lack thereof. In this project, we modeled the rising low-risk
+c-section rate as an epidemic across states. We sought to understand how each state’s clinical practice influences the other state’s
+practice affecting low-risk c-section rates. We will assess these influences by building a compartmental epidemiological model to
+capture the interacting dynamics of the spread of a high low-risk
+c-section rate. We will analyze this model to understand how different policies affect the rise of c-section in different states, and how
+the influence and knowledge-spread patterns can be leveraged to
+identify an optimal "intervention" that would bring the low-risk
+c-section rates to a healthy range.
+2 CHANGES FROM THE MILESTONE
+The main feedback that was given to us during the milestone, was
+that there didn’t seem to be that much of a change from the proposal
+to the milestone report in terms of results. The reason for this was
+that formulating a way to actually build the model took a lot longer
+than we expected. Additionally, Meghan was focusing on the state
+to state guidelines, while Swetha was focusing on the guideline to
+state interaction. The milestone project contained a deeper analysis
+of the actual data, in terms of how it can be phrased to be able to
+feed into our model, and the final report contains our actual results
+from our experiments.
+3 LITERATURE REVIEW
+3.1 Epidemiological models for social and
+behavioral phenomenon
+Classical epidemiological models were initially developed to map
+disease progression throughout populations using simple methods
+such as SIR models, or more complex methods such as agent-based
+models. These models are used to analyze epidemics, typical large,
+short-term outbreaks of a disease. The spread of an infectious disease is dependent on both disease related factors (infectious population, transmission, susceptibility, etc.) and social, cultural, and
+geographic factors [9]. These models define a population, either
+homogeneous or heterogeneous, and how mixing occurs within the
+population. Finally, the spread of a disease is modeled within the
+population using disease parameters. These parameters can be estimated using data or inferred from the literature, and at minimum
+include the rate of infection within the population.
+More recently, epidemiological models have been applied in
+areas beyond infectious diseases to understand scenarios in which
+a phenomenon is spreading throughout a population. Examples
+of these applications include information diffusion on Twitter [3],
+viral online marketing campaigns [22], social contagions such as
+audience applause [13], idea adoption in academic environments
+[2]. In these examples, a social and behavioral phenomenon that
+spreads through a population is analyzed through a simple SIR
+model to better understand how the phenomenon occurs, and to
+either exploit or diminish the spread. A key difference between the
+spread of diseases and ideas is that the spread of an idea is usually
+an intentional act of the transmitter and/or the adopter, which may
+result in slower and more heterogeneous spreading. Despite these
+differences, it has been shown that simple epidemiologic models
+can be effectively applied to better understand social and behavioral
+phenomenon [2].
+We will apply epidemiology models to the social and behavioral
+phenomenon of physician behavior. Physician behavior is notoriously difficult to change, and the influence of physician behavior on
+other physicians’ clinical decisions is uncertain [10]. In one study,
+network methods were applied to understand how physicians influence their peers practice style in the adoption of advanced imaging
+tests for women with breast cancer [20]. Leveraging these networks
+of influence may lead to better adoption of technologies and higher
+quality care. There is more opportunity to apply epidemiology
+methods to study physician behavior and influence, and to exploit
+their influence to achieve better health outcomes.
+3.2 C-section rate reduction interventions
+In the case of high low-risk c-section rates, there have been many
+federal and local initiatives to reduce these rates to healthier ranges.
+To reduce unnecessary c-sections in high income countries, there
+have been financial incentives and regulatory measures introduced
+for both physicians and health organizations, however the impact of
+these incentives and measures is inconclusive [18]. Some interventions that have been successful in reducing unnecessary c-sections
+include educating patients, using midwifes during delivery, providing feedback and evaluating physicians, and implementing guidelines [15]. A particularly successful intervention in the United States
+was a quality improvement collaboration between the California
+Maternal Quality Care Collaborative and Smart Care California,
+WHO implemented multiple approaches to reducing c-section rates
+[23]. From 2014 to 2019, the rates of low-risk c-section decreased
+from 26.0% to 22.8%. This decrease was 3.2% higher than in the
+rest of the United States [23]. These successful intervention methods may be more strategically implemented in states with high
+influence in other states.
+4 PROBLEM STATEMENT
+In general, c-sections are performed in order to safeguard the health
+of the mother and/or the child. However, the recent rise of unnecessary c-section without an evident reduction in maternal/neonatal
+morbidity has raised a concern for the misuse or misinformed performance of c-section. We hypothesize that this rise is partially due
+to information and clinical practice patterns spreading between US
+states. Using epidemiological methods to model the spread of clinical practice behavior, we hope to understand these clinical practice
+spread patterns between states, identify the most influential states
+contributing to the rising rates, and identify optimal interventions
+to reduce rates to a healthy range.
+5 DATA SOURCES AND COLLECTION
+We used two data sources: the CDC WONDER database and global,
+national, and state clinical practice guidelines to create our epidemiology models.
+The Unhealthy Rise in Unnecessary C-sections
+CSE 8803 - EPI, Fall 2022, December 1, 2022,
+5.1 CDC WONDER
+The Centers for Disease Control and Prevention (CDC) has created
+a Wide-ranging Online Data for Epidemiologic Research (WONDER) dataset to simplify access to public health information and
+to promote information-driven decision-making. For our project,
+we used the Natality online database, which reports counts of live
+births occurring within the US derived from birth certificates. This
+database includes counts of births that may be stratified by location,
+fetal characteristics, maternal characteristics, and risk factors.
+While we hoped to get birth data by the most granular geographic locality available, this locality is county data in the CDC
+WONDER Natality database. However, data is only available for
+counties with a population of 100,000 or more as noted in the 2000
+or 2010 census. There are concerns with increasing unnecessarily
+high c-section rates, especially in rural and southern regions, many
+of which would be excluded if we analyzed birth data by available
+counties. To pursue a more equitable analysis, we analyze c-section
+rates by state, which is the next most granular geographic locality
+that does not have any missing data.
+Using the CDC WONDER Natality database, we retrieved counts
+of live births and c-sections stratified by state and year. The Natality
+data is offered in four separate online databases (1995-2002, 2003-
+2006, 2007-2020, 2016-2020 (expanded)). For this analysis, counts of
+c-section data are available for the years 2003 - 2020 so we limited
+our analysis to these years. We combine the 2003-2006 and 2007-
+2020 databases for our analysis.
+Using this data, we calculated and analyzed the low-risk (LR)
+c-section rates.
+LR c-section Rate =
+LR c-sections
+LR Deliveries (1)
+This rate is the target of many interventions to reduce unnecessary c-sections. A low-risk pregnant woman is defined by the US
+Department of Health and Human Services as nulliparous (never
+given birth before), full-term (at least 37 weeks of gestation, based
+on the obstetric estimate of gestation at delivery), singleton (not
+a multiple) pregnancy, with a vertex fetus (head facing in a downward position in the birth canal) [16]. Data on fetal positioning
+(e.g., vertex vs. breech) is not available for 2003-2015 in the CDC
+WONDER Natality data, so we define low-risk c-section as c-section
+by a nulliparous, full-term, singleton (NTS) pregnant woman. Because we adjusted the definition of low-risk c-section for the data
+available, we will use an increased rate of 27% as our target rate
+in our model. Figure 2 shows the change in the rates of low-risk
+c-sections from 2003-2020 in four regions of the United States.
+Figure 2: Rate of Low-Risk C-sections by Region from 2003-
+2020, retrieved from CDC WONDER Natality Database
+5.2 Clinical Practice Guidelines
+In 2001, Dr. Michael Robson outlined ten categories during which a
+c-section would be appropriate, and these categories were validated
+by the WHO [5]. The categories include (1) previous c-section has
+been performed, (2) multiple gestation (twins, triplets, etc.), (3) fetal
+distress, (4) fetal position, (5) preterm birth, (6) maternal infections,
+etc.
+While these categories take into consideration emergency situations during which a c-section is performed, more recently there
+has been an increasing number of c-sections performed due to slow
+labor progression rather than risk factors. Many non-emergency
+c-sections may be unnecessary and actually increase the risk of
+adverse outcomes for pregnant women. Table 1 shows the guidelines for non-emergency c-sections over the years, in the different
+regions[1]. Gestational age is the period of time between conception
+and birth, where a normal pregnancy ranges from 38 - 42 weeks.
+Active labor is the minimum dilation necessary to continue with
+vaginal delivery, otherwise, a c-section is performed. Finally, labor
+arrest indicates the length of time in labor without progressing in
+dilation.
+These guidelines are potential indications of why the c-section
+rate has changed over time, as is different by region. For example:
+From 2012 to 2017 in the Midwest, rather than continuing to decrease the low-risk c-section rate began increasing [17]. This may
+be partially due to the change in the "active labor" guideline from
+5cm to 6cm dilated. This change caused women to have to labor
+for longer to achieve "active labor" and likely caused many women
+who were between 5-6cm to be recommended for c-sections.
+6 METHODS
+The goal of this project was to create a data-driven epidemiological
+model to understand trends in the United States C-section rate and
+to propose interventions to reduce the rate.
+6.1 Phase I: Network Structure and Calibration
+We modeled the US low-risk c-section rate as a network model,
+where each node represented a state and the edges were directed,
+weighted influence relationships. A state was considered "infected"
+if it had a low-risk c-section rate above a threshold of 27%. Our
+model was calibrated from the years 2002 - 2007, where we assumed that in 2002 no states were "infected". We inferred the state -
+CSE 8803 - EPI, Fall 2022, December 1, 2022,
+Meredith and Bhattaram
+Year Region Gest Age Active
+Labor Labor Arrest
+2003 Southern US 37 weeks 4cm 2 hours
+2003 Western US 39 weeks 6cm 2 hours
+2003 East/North East US 38 weeks 4cm 1.5 hours
+2003 Midwest 38 weeks 5cm 1.5 hours
+2006 Southern US 37 weeks 3cm 1.5 hours
+2006 Western US 37 weeks 6cm 2 hours
+2006 East/North East US 37 weeks 4cm 2 hours
+2006 Midwest 37 weeks 4cm 1.5 hours
+2007 Southern US 37 weeks 3cm 1.5 hours
+2007 Western US 37 weeks 6cm 2 hours
+2007 East/North East US 37 weeks 4cm 1.5 hours
+2007 Midwest 37 weeks 4cm 2 hours
+2012 Southern US 36 weeks 4cm 1.5 hours
+2012 Western US 38 weeks 6cm 2 hours
+2012 East/North East US 37 weeks 4cm 2 hours
+2012 Midwest 38 weeks 5cm 2 hours
+2017 Southern US 37 weeks 4cm 1.5 hours
+2017 Western US 38 weeks 6cm 2 hours
+2017 East/North East US 38 weeks 4cm 2 hours
+2017 Midwest 38 weeks 6cm 2 hours
+Table 1: Guidelines for performing a low-risk c-section for
+regions of the United States.
+state influence edges through cascades of c-section rate changes.
+This network revealed how states influence other states, and is the
+baseline model for Phase II and Phase III.
+To calibrate this model, we used cascade traces in the 2003 - 2007
+low-risk c-section rate across states from the CDC WONDER database. Each state was represented as a node 𝑢 ∈ 𝐴𝐾, 𝐴𝐿, ...,𝑊𝑉 ,𝑊 𝑌,
+and each state had a potential influence relationship, or edge, with
+every other state.
+(𝑢, 𝑣) ∈ (𝐴𝐾, 𝐴𝐿), (𝐴𝐾, 𝐴𝑅), ...(𝑊𝑉 ,𝑊 𝑌)
+The goal of our calibration was to find the constant probability of
+influence over each edge 𝑝𝑢𝑣 . To find this probability, we assume
+that if state 𝑢 has a c-section rate that becomes higher than the
+threshold, and the next year state 𝑣 has a c-section rate that becomes
+higher than the threshold, we considered the action propagated
+from state 𝑢 to 𝑣. Thus, state 𝑢 has infected state 𝑣.
+We let 𝐴𝑢 be the total number of actions state 𝑢 takes, i.e. the
+total number of times state 𝑢’s rate crosses the threshold. Thus,
+state 𝑢 is making 𝐴𝑢 number of tries to infect node 𝑣, of which only
+𝐴𝑢2𝑣 succeed. Finally, to estimate 𝑝𝑢𝑣 we compute:
+𝑝
+∗
+𝑢𝑣 =
+𝐴𝑢2𝑣
+𝐴𝑢
+(2)
+If 𝑝𝑢𝑣 = 0, we assume a directed influence edge does not exist
+from state 𝑢 to state 𝑣. If 𝑝𝑢𝑣 > 0, we assume a directed influence
+edge does exist and is weighted by 𝑝𝑢𝑣 . Thus, the 𝑝𝑢𝑣 values make
+up an adjacency matrix for our network.
+6.2 Phase II: State Centrality
+To determine which state has the most influence in c-section clinical
+practice, we identified the most central node in our network. The
+centrality was calculated using the package networkx, utilizing the
+eigenvector centrality function
+6.3 Phase III: Intervention
+In the final phase, we tested whether or not implementing various
+interventions in the identified central states would bring down the
+overall low-risk c-section rate of the country. These interventions
+practically may be similar to the California Maternal Quality Care
+Collaborative intervention in California that successfully reduced
+their low-risk rate by over 3%.
+We tested interventions in Oklahoma and California, the two
+most influential states. In our baseline model, we initialized the
+model with the states that were "infectious" in 2003 and simulated
+the spread of increasing and decreasing low-risk c-section rates
+until 2030. In our intervention models, we similarly simulated the
+spread from 2003 - 2020, but we implemented interventions in 2020
+to analyze various "what-if" scenarios. Our first intervention was to
+ensure that Oklahoma, our most influential (i.e. central) state, had a
+low-risk c-section rate under 27% from 2020 - 2030. Thus, Oklahoma
+was forced to be "uninfected" in our model after 2020. Our second
+intervention was to ensure both Oklahoma and California were
+"uninfected".
+The goal of these interventions is to test our hypothesis that
+changing the rate in one state would bring down the rates in the
+other states.
+7 EXPERIMENTS AND RESULTS
+7.1 List of Questions To Answer
+With the main goal of understanding the causes of the rise in csection rates, we analyzed the following questions.
+(1) Can we understand how changing one state’s c-section rates
+changes another state’s c-section rates? i.e. Are the cascades
+of c-section rates across states indicative of a state network
+structure?
+(2) Can we determine which states are most influential in this
+network?
+(3) Can we leverage this network to implement targeted intervention locations to "bend the curve" and bring down the
+c-section rates, in line with US Healthy People Goals?
+(4) Can we incorporate guidelines in the network to determine
+their influence over states’ c-section rates?
+Unfortunately, our semester timeline did not allow us time to
+address question (4).
+7.2 Experiments/Findings
+7.2.1 Network Structure and Calibration. We inferred our network
+from low-risk c-section cascades, and the resulting directed, weighted
+network is shown in Figure 3.
+The Unhealthy Rise in Unnecessary C-sections
+CSE 8803 - EPI, Fall 2022, December 1, 2022,
+Figure 3: Network of state-state directed influence. AK and HI
+excluded because they are disconnected from the network.
+The network we inferred was dense, indicating that each state
+potentially influences many states and has many influencers. This
+may imply that rather than a c-section rate cascading from one
+state to another, that all the states generally have similar c-section
+rate changes simultaneously.
+7.2.2 State Centrality. Using the eigenvector centrality function of
+the networkx package, we report the centrality of the ten most central states in Figure 4. The two most central states were Oklahoma
+and California, and the next five states have the same centrality
+(PA, MI, NV, CT, GA). These states that were identified were used in
+the next phase of the project to test various intervention schemes,
+to identify if implementing an intervention in these states would
+help bring down the overall c-section rates.
+Figure 4: Eigenvector centrality of ten most central nodes in
+influence network
+Based on these results, we assume that implementing an intervention in California and Oklahoma would have the most significant
+impact. However, the ten most central states all have relatively
+similar centrality, which aligns with our network being highly connected. This means that there is no clearly central state that would
+have vast influence compared to other states.
+7.2.3 Intervention. As detailed in section 6.3, we ran two intervention models and compared them with our baseline. Our models
+were run 100 times and averaged, and the results of our baseline
+model and intervention are shown in Figure 5.
+Figure 5: True infections, baseline model, and interventions
+to reduce the number of "infected" states over time
+Although the interventions we simulated do bring down the
+number of "infected" states, it is only by a relatively small number
+(on average less than 2). This indicates that a targeted intervention
+in the most central states will only have an effect on those states and
+potentially one other state. Because our network is so connected,
+it would require an intervention in many more than two states to
+reduce the c-section rate in all states.
+7.2.4 Model Improvement and Areas of Error. One area to improve
+this model is in the intervention area: Our intervention model did
+perform well, and our conclusion from the result that we have is
+that bringing down the rates in one state will not cascade well to the
+other states. A limitation of our project is that we only considered
+c-section rates as a binary, over or under 27%. An improvement to
+our model would be to consider these rates as continuous variables.
+In our interventions, we would want to ideally find the optimal
+drop in the c-section rates that would actually cause a change in the
+network. Realistically, the c-section rates will not drop drastically
+from year to year, for each individual state, so the change would
+have to come for a larger collective group of states. Finally, we are
+limited by a relatively small timespan and our model would benefit
+from having data from the 1990s.
+8 FUTURE WORK AND CONCLUSION
+In this project, we modeled changing c-section rates in the US as
+a network model where states influenced one another. We calibrated this model to real-world data from the CDC and determined
+the weighted influences each state had. We determined that Oklahoma and California were the most influential states in the network
+and proposed interventions to target these states. Unfortunately,
+these interventions did not have a large effect on the network. This
+may indicate that physician behavior in providing unnecessary csections is not influenced by other physicians’ behavior, or that one
+hospital system is not influenced by other hospital systems. A more
+successful intervention may be for states to internally implement
+CSE 8803 - EPI, Fall 2022, December 1, 2022,
+Meredith and Bhattaram
+measures to reduce their rate, or for the federal government to
+implement national measures.
+It is important to note that in real life, imposing these interventions is very resource intensive, and our model does not specifically
+account for a trade-off between the number of interventions or size
+of states vs cost or resource allocation.
+Something that we hoped to achieve this semester was identifying a set of guidelines that can be implemented and simulated in
+different states based on current guidelines, and test the relationship
+between the guidelines themselves and the change of c-section rates.
+As groundwork for this, we thoroughly scoped out the databases
+provided by the CDC [? ]. However, the guideline to state is still in
+progress: there is difficulty in identifying the mathematical probability from changing the guidelines to the changing of the c-section
+rates, since it’s not a node to node interaction. To continue this
+project forward, we would suggest to complete a similar cascading
+analysis of how changing the different guidelines listed(i.e the gestational age, definition of active labor and the length of time that
+determines a labor to be in labor arrest) affect the overall change
+in c-section rates. In order for this project to make a real world
+impact, this future study is imperative, as the work here shows
+that bringing down the c-section rates in individual, influential
+states does not contribute to a change significant enough to bring
+the overall c-section rates to a healthy level. Hence, a more complex model understanding how the information itself is transferred
+between states, and how that transfer of information affects the
+c-section rates, and how to pinpoint the exact guidelines that cause
+that change, is needed for a more conclusive solution.
+REFERENCES
+[1] Betran AP, Torloni MR, Zhang JJ, and Gülmezoglu AM. 2016. WHO Statement
+on Caesarean Section Rates. National Institute of Health 5 (04 2016), 667–670.
+https://doi.org/10.1111/1471-0528.13526
+[2] Luís M.A. Bettencourt, Ariel Cintrón-Arias, David I. Kaiser, and Carlos CastilloChávez. 2006. The power of a good idea: Quantitative modeling of the spread
+of ideas from epidemiological models. Physica A: Statistical Mechanics and its
+Applications 364 (5 2006), 513–536. https://doi.org/10.1016/j.physa.2005.08.083
+[3] John Cannarella and Joshua A. Spechler. 2014. Epidemiological modeling of
+online social network dynamics. Http://Arxiv.Org/ (1 2014), 1–11. https://doi.
+org/10.48550/arxiv.1401.4208
+[4] Aaron B. Caughey, Alison G. Cahill, Jeanne Marie Guise, and Dwight J. Rouse.
+2014. Safe prevention of the primary cesarean delivery. American Journal of
+Obstetrics Gynecology 210 (3 2014), 179–193. Issue 3. https://doi.org/10.1016/J.
+AJOG.2014.01.026
+[5] CesareanRates.org. 2021. Cesarean Rates. https://www.cesareanrates.org/
+[6] Eugene Declercq, Fay Menacker, and Marian MacDorman. 2006. Maternal risk
+profiles and the primary cesarean rate in the United States, 1991-2002. American
+Journal of Public Health 96 (5 2006), 867–872. Issue 5. https://doi.org/10.2105/
+AJPH.2004.052381
+[7] National Center for Health Statistics. 2022. Stats of the States - Cesarean Delivery
+Rates. https://www.cdc.gov/nchs/pressroom/sosmap/cesarean_births/cesareans.
+htm
+[8] Kimberl D. Gregory, Sherri Jackson, Lisa Korst, and Moshe Fridman. 2012. Cesarean versus vaginal delivery: Whose risks? whose benefits? American Journal of Perinatology 29 (2012), 7–18. Issue 1. https://doi.org/10.1055/S-0031-
+1285829/ID/OR00134-39
+[9] Herbert W Hethcote. 1989. Three Basic Epidemiological Models.
+[10] Nancy L. Keating. 2017. Peer Influence and Opportunities for Physician Behavior
+Change. Journal of the National Cancer Institute 109 (8 2017). Issue 8. https:
+//doi.org/10.1093/jnci/djx009
+[11] Katy Backes Kozhimannil, Michael R. Law, and Beth A. Virnig. 2017. Cesarean
+Delivery Rates Vary Tenfold Among US Hospitals; Reducing Variation May
+Address Quality And Cost Issues. https://doi.org/10.1377/hlthaff.2012.1030 32 (8
+2017), 527–535. Issue 3. https://doi.org/10.1377/HLTHAFF.2012.1030
+[12] Marian F. MacDorman, Fay Menacker, and Eugene Declercq. 2008. Cesarean Birth
+in the United States: Epidemiology, Trends, and Outcomes. Clinics in Perinatology
+35 (6 2008), 293–307. Issue 2. https://doi.org/10.1016/J.CLP.2008.03.007
+[13] Richard P. Mann, Jolyon Faria, David J.T. Sumpter, and Jens Krause. 2013. The
+dynamics of audience applause. Journal of The Royal Society Interface 10 (8 2013).
+Issue 85. https://doi.org/10.1098/RSIF.2013.0466
+[14] Diana Montoya-Williams, Dominick J. Lemas, Lisa Spiryda, Keval Patel, Josef Neu,
+and Tiffany L. Carson. 2017. What Are Optimal Cesarean Section Rates in the
+U.S. and How Do We Get There? A Review of Evidence-Based Recommendations
+and Interventions. Journal of Women’s Health 26 (12 2017), 1285. Issue 12.
+https://doi.org/10.1089/JWH.2016.6188
+[15] Farideh Moradi, Aidin Aryankhesal, Mohammad Heidari, Ali Soroush, and
+Sara Rahimi Sadr. 2019. Interventions in reducing caesarean section in the
+world: A systematic review. Malaysian Journal of Medical Sciences 26 (2019),
+21–37. Issue 5. https://doi.org/10.21315/mjms2019.26.5.3
+[16] Office of Disease Prevention and Health Promotion. 2020. Reduce cesarean
+births among low-risk women with no prior births — MICH-06 - Healthy
+People 2030. https://health.gov/healthypeople/objectives-and-data/browseobjectives/pregnancy-and-childbirth/reduce-cesarean-births-among-low-riskwomen-no-prior-births-mich-06
+[17] American College of Obstetricians and Gynaecologists. 2014. Nation’s Ob-Gyns
+Take Aim at Preventing Cesareans. https://www.acog.org/news/news-releases/
+2014/02/nations-obgyns-take-aim-at-preventing-cesareans
+[18] Newton Opiyo, Claire Young, Jennifer Harris Requejo, Joanna Erdman, Sarah
+Bales, and Ana Pilar Betrán. 2020. Reducing unnecessary caesarean sections:
+Scoping review of financial and regulatory interventions. Reproductive Health 17
+(8 2020). Issue 1. https://doi.org/10.1186/s12978-020-00983-y
+[19] Michelle J K Osterman, Brady E Hamilton, Joyce A Martin, Anne K Driscoll, and
+Claudia P Valenzuela. 2022. National Vital Statistics Report, Births: Final Data
+for 2020. Issue 17. https://www.cdc.gov/nchs/products/index.htm.
+[20] Craig E. Pollack, Pamela R. Soulos, Jeph Herrin, Xiao Xu, Nicholas A. Christakis,
+Howard P. Forman, James B. Yu, Brigid K. Killelea, Shi Yi Wang, and Cary P.
+Gross. 2017. The Impact of Social Contagion on Physician Adoption of Advanced
+Imaging Tests in Breast Cancer. Journal of the National Cancer Institute 109 (8
+2017). Issue 8. https://doi.org/10.1093/jnci/djw330
+[21] Julia C. Rhodes, Kenneth C. Schoendorf, and Jennifer D. Parker. 2003. Contribution of excess weight gain during pregnancy and macrosomia to the cesarean delivery rate, 1990-2000. Pediatrics 111 (5 2003), 1181–1185. Issue 5 II.
+https://doi.org/10.1542/peds.111.s1.1181
+[22] Helena Sofia Rodrigues, Manuel Fonseca, and Manuelfonseca@esce Ipvc Pt. 2015.
+Viral marketing as epidemiological model. (7 2015). https://doi.org/10.48550/
+arxiv.1507.06986
+[23] Melissa G. Rosenstein, Shen Chih Chang, Christa Sakowski, Cathie Markow,
+Stephanie Teleki, Lance Lang, Julia Logan, Valerie Cape, and Elliott K. Main. 2021.
+Hospital Quality Improvement Interventions, Statewide Policy Initiatives, and
+Rates of Cesarean Delivery for Nulliparous, Term, Singleton, Vertex Births in
+California. JAMA - Journal of the American Medical Association 325 (4 2021),
+1631–1639. Issue 16. https://doi.org/10.1001/jama.2021.3816

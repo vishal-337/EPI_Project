@@ -1,6 +1,7 @@
 import os
 import argparse
 import pandas as pd
+from state_neighbors import neighbors
 
 ROOT = os.path.abspath(os.path.dirname(__file__))
 DATA = os.path.join(ROOT, "data")
@@ -33,7 +34,9 @@ for t in years:
         for d in new_adopters:
             if s == d:
                 continue
-            edge_counts[(s, d)] = edge_counts.get((s, d), 0) + 1
+            # Only allow influence between neighbors
+            if d in neighbors.get(s, []):
+                edge_counts[(s, d)] = edge_counts.get((s, d), 0) + 1
 
 edges = pd.DataFrame([(s, d, w) for (s, d), w in edge_counts.items()], columns=["source", "target", "weight"]).sort_values(["weight", "source", "target"], ascending=[False, True, True])
 edges.to_csv(os.path.join(OUT, "influence_edges.csv"), index=False)
