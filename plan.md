@@ -1,42 +1,34 @@
 # Project Plan
 
 ## 1. Data Consolidation
-- Ingest `data/State_Opioid_Dispensing_Rates_2006_2018.csv` and `data/State Opioid Dispensing Rates.csv`.
-- Standardize column names, remove national aggregate rows, harmonize state keys, and merge into a single 2006–2023 state-year panel.
-- Export cleaned dispensing panel for downstream use.
+- **State Level:** Ingest `data/State_Opioid_Dispensing_Rates_2006_2018.csv` and `data/State Opioid Dispensing Rates.csv`. Merge into a single 2006–2023 state-year panel.
+- **County Level:** Ingest `data/County Opioid Dispensing Rates_Complete.csv`. Clean FIPS codes, standardize names, and create a county-year panel.
+- Export cleaned panels for downstream use.
 
-## 2. PDMP Preprocessing
-- Parse implementation, operation, and access dates from `data/20170828_PDMPDates_Data.csv`.
-- Collapse `data/PDMP Reporting and Authorized Use Data 8.23.22.csv` into yearly state indicators aligned with the dispensing panel.
-- Produce a unified PDMP feature table indexed by state and year.
+## 2. High-Prescribing Adoption Definition
+- Define "High-Prescribing" thresholds for both State and County levels (e.g., top decile, absolute CDC thresholds).
+- Flag `is_high` per state-year and county-year.
+- Record the "adoption year" (first year entering high status) for each entity.
 
-## 3. High-Prescribing Adoption Definition
-- Choose CDC-aligned high-rate thresholds (e.g., absolute cutoff or percentile).
-- Flag `is_high` per state-year and record the first year each state enters the high category.
-- Save adoption-year mapping for analysis.
+## 3. Influence Network Construction
+- **State Network:** Construct edges based on temporal precedence (states high in year $t$ -> states becoming high in $t+1$).
+- **County Network:** Construct edges similarly, potentially constrained by geographic adjacency or within-state relationships to manage the larger scale.
+- Prune weak edges and bootstrap to quantify edge stability.
 
-## 4. Influence Network Construction
-- For each year, add edges from states already high to states newly high in the subsequent year.
-- Aggregate edge counts, optionally normalize by exposure opportunities, and prune weak edges.
-- Bootstrap years to quantify uncertainty on edge weights.
+## 4. Influential Node Ranking
+- Compute centrality metrics (eigenvector, PageRank) for the State network.
+- Compute centrality metrics for the County network to identify "super-spreader" counties.
+- Export rankings of the most influential states and counties.
 
-## 5. Influential State Ranking
-- Compute eigenvector, weighted degree, and betweenness centralities on the pruned network.
-- Identify stable top-k states across sensitivity and bootstrap runs.
-- Export rankings with uncertainty ranges.
+## 5. Network-Based Prediction and Validation
+- Split data into training (early years) and testing (later years) sets.
+- Train network influence models on the training set for both State and County levels.
+- Predict the dispensing rates or "high" status for the test set.
+- Compare network-based prediction accuracy against non-network baselines (e.g., ARIMA, simple carry-forward).
 
-## 6. Baseline Diffusion Replay
-- Calibrate a propagation model using inferred edges to replay held-out years.
-- Compare performance against a no-network carry-forward baseline and independent per-state models.
-- Summarize forecast accuracy metrics.
-
-## 7. Policy-Aligned Intervention Simulations
-- Disable outgoing influence from selected top-k states starting at PDMP implementation or access years.
-- Re-run simulations, capturing changes in yearly high-state counts versus the baseline.
-- Report bootstrap confidence intervals for intervention impacts.
-
-## 8. Evaluation and Reporting
-- Document errors, ranking stability, and intervention outcomes with supporting figures and tables.
-- Highlight PDMP coverage limits (post-2017) and non-causal interpretation of inferred influence.
-- Integrate results, robustness checks, and policy discussion into the paper sections in `project.txt`.
+## 6. Evaluation and Reporting
+- Visualize the inferred influence networks (State and County).
+- Report prediction accuracy metrics (RMSE, Accuracy, F1-score).
+- Discuss the stability of rankings and the predictive power of the network approach.
+- Integrate results into the final paper structure.
 

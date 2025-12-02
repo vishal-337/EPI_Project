@@ -2,8 +2,9 @@ import os
 import pandas as pd
 import numpy as np
 
-ROOT = os.path.abspath(os.path.dirname(__file__))
-DATA = os.path.join(ROOT, "data")
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+DATA = os.path.join(PROJECT_ROOT, "data")
 PROC = os.path.join(DATA, "processed")
 os.makedirs(PROC, exist_ok=True)
 
@@ -12,7 +13,9 @@ df = pd.read_csv(src)
 df = df.dropna(subset=["YEAR", "STATE_ABBREV", "opioid_dispensing_rate"]).copy()
 df["YEAR"] = df["YEAR"].astype(int)
 
-thr = 51.7
+# Updated threshold: 75th percentile from 2006 baseline (was 51.7)
+# This flags the top 25% of states as "high prescribing" instead of 88%
+thr = 87.35
 
 df = df.sort_values(["STATE_ABBREV", "YEAR"]).reset_index(drop=True)
 df["is_high"] = (df["opioid_dispensing_rate"] > thr).astype(int)
