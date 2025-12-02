@@ -1,8 +1,12 @@
 import pandas as pd
 import os
 
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+DATA_PATH = os.path.join(PROJECT_ROOT, "data", "processed", "dispensing_state_year.csv")
+
 # Load the data
-df = pd.read_csv("data/processed/dispensing_state_year.csv")
+df = pd.read_csv(DATA_PATH)
 
 # Filter for the first year (2006)
 df_2006 = df[df["YEAR"] == 2006]

@@ -4,10 +4,11 @@ import networkx as nx
 import numpy as np
 import random
 
-ROOT = os.path.abspath(os.path.dirname(__file__))
-DATA = os.path.join(ROOT, "data")
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+DATA = os.path.join(PROJECT_ROOT, "data")
 PROC = os.path.join(DATA, "processed")
-OUT = os.path.join(ROOT, "outputs")
+OUT = os.path.join(PROJECT_ROOT, "outputs")
 
 EDGES_PATH = os.path.join(OUT, "influence_edges.csv")
 PANEL_PATH = os.path.join(PROC, "dispensing_with_is_high.csv")

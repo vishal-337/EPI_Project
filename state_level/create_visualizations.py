@@ -4,9 +4,10 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 
-ROOT = os.path.abspath(os.path.dirname(__file__))
-OUT = os.path.join(ROOT, "outputs")
-PROC = os.path.join(ROOT, "data", "processed")
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+OUT = os.path.join(PROJECT_ROOT, "outputs")
+PROC = os.path.join(PROJECT_ROOT, "data", "processed")
 
 def plot_network():
     print("Generating Network Graph...")
@@ -59,30 +60,6 @@ def plot_rankings():
     plt.savefig(os.path.join(OUT, "top_influencers_bar.png"), dpi=300)
     plt.close()
 
-def plot_intervention():
-    print("Generating Intervention Impact Chart...")
-    int_path = os.path.join(OUT, "intervention_results.csv")
-    if not os.path.exists(int_path):
-        print("Skipping intervention chart: file not found.")
-        return
-
-    df = pd.read_csv(int_path)
-    
-    plt.figure(figsize=(10, 6))
-    plt.plot(df["Year"], df["Baseline"], marker='o', label='Baseline (No Action)', linewidth=2, color='black')
-    plt.plot(df["Year"], df["Block_TN"], marker='s', label='Block TN Only', linestyle='--', color='orange')
-    plt.plot(df["Year"], df["Block_Region"], marker='^', label='Block Region (TN+SC+AL)', linewidth=2, color='green')
-    
-    plt.xlabel("Year")
-    plt.ylabel("Number of High-Prescribing States")
-    plt.title("Impact of Policy Interventions on Epidemic Spread")
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    plt.xticks(df["Year"].astype(int))
-    plt.tight_layout()
-    plt.savefig(os.path.join(OUT, "intervention_impact_line.png"), dpi=300)
-    plt.close()
-
 def plot_adoption_timeline():
     print("Generating Adoption Timeline...")
     adopt_path = os.path.join(PROC, "adoption_year.csv")
@@ -111,6 +88,5 @@ def plot_adoption_timeline():
 if __name__ == "__main__":
     plot_network()
     plot_rankings()
-    plot_intervention()
     plot_adoption_timeline()
     print("All visualizations generated in 'outputs/' folder.")

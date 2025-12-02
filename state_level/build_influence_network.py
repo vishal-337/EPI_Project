@@ -3,10 +3,11 @@ import argparse
 import pandas as pd
 import numpy as np
 
-ROOT = os.path.abspath(os.path.dirname(__file__))
-DATA = os.path.join(ROOT, "data")
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+DATA = os.path.join(PROJECT_ROOT, "data")
 PROC = os.path.join(DATA, "processed")
-OUT = os.path.join(ROOT, "outputs")
+OUT = os.path.join(PROJECT_ROOT, "outputs")
 os.makedirs(OUT, exist_ok=True)
 
 # --- Geographic Adjacency Dictionary ---

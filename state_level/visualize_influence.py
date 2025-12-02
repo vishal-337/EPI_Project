@@ -3,8 +3,9 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 
-ROOT = os.path.abspath(os.path.dirname(__file__))
-OUT = os.path.join(ROOT, "outputs")
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+OUT = os.path.join(PROJECT_ROOT, "outputs")
 os.makedirs(OUT, exist_ok=True)
 
 edges_path = os.path.join(OUT, "influence_edges.csv")
