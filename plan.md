@@ -3,32 +3,33 @@
 ## 1. Data Consolidation
 - **State Level:** Ingest `data/State_Opioid_Dispensing_Rates_2006_2018.csv` and `data/State Opioid Dispensing Rates.csv`. Merge into a single 2006–2023 state-year panel.
 - **County Level:** Ingest `data/County Opioid Dispensing Rates_Complete.csv`. Clean FIPS codes, standardize names, and create a county-year panel.
-- Export cleaned panels for downstream use.
+- **Output:** `dispensing_state_year.csv` and `dispensing_county_year.csv`.
 
 ## 2. High-Prescribing Adoption Definition
-- Define "High-Prescribing" thresholds for both State and County levels (e.g., top decile, absolute CDC thresholds).
-- Flag `is_high` per state-year and county-year.
-- Record the "adoption year" (first year entering high status) for each entity.
+- **State Level:** Define "High-Prescribing" using a global 75th percentile threshold. Flag `is_high` and record adoption years.
+- **County Level:** Define "High-Prescribing" using **state-specific** 75th percentile thresholds to account for regional baselines.
+- **Super-Spreaders:** Identify counties that adopted high rates significantly earlier than their state average.
 
 ## 3. Influence Network Construction
-- **State Network:** Construct edges based on temporal precedence (states high in year $t$ -> states becoming high in $t+1$).
-- **County Network:** Construct edges similarly, potentially constrained by geographic adjacency or within-state relationships to manage the larger scale.
-- Prune weak edges and bootstrap to quantify edge stability.
+- **State Network:** Construct edges based on **Geographic Adjacency** combined with **Temporal Decay** (states high in year $t$ -> neighbors becoming high in $t+1$).
+- **County Network:** Construct **Intra-State** influence networks. Connect counties within the same state based on temporal precedence of high-prescribing status.
 
 ## 4. Influential Node Ranking
-- Compute centrality metrics (eigenvector, PageRank) for the State network.
-- Compute centrality metrics for the County network to identify "super-spreader" counties.
-- Export rankings of the most influential states and counties.
+- **State Level:** Compute centrality metrics (Weighted Out-Degree, Eigenvector, Betweenness) to identify national influencers.
+- **County Level:** Compute centrality metrics (Weighted Out-Degree, Eigenvector) within state networks to identify local drivers.
 
-## 5. Network-Based Prediction and Validation
-- Split data into training (early years) and testing (later years) sets.
-- Train network influence models on the training set for both State and County levels.
-- Predict the dispensing rates or "high" status for the test set.
-- Compare network-based prediction accuracy against non-network baselines (e.g., ARIMA, simple carry-forward).
+## 5. Continuous Prediction Models
+- **State Level:** Implement a **Spatial Autoregressive Model** to predict continuous dispensing rates.
+    - Features: Self-history (Autoregression) + Neighboring state averages (Spatial Spillover).
+- **County Level:** Implement a continuous regression model.
+    - Features: County's own history + State-level trends.
+- **Case Study:** Perform a focused prediction analysis for **Georgia (GA)** counties to validate the model at a granular level.
 
 ## 6. Evaluation and Reporting
-- Visualize the inferred influence networks (State and County).
-- Report prediction accuracy metrics (RMSE, Accuracy, F1-score).
-- Discuss the stability of rankings and the predictive power of the network approach.
-- Integrate results into the final paper structure.
+- **Visualizations:**
+    - Network graphs and centrality rankings.
+    - "Super-Spreader" county timelines.
+    - Actual vs. Predicted scatter plots for model validation.
+- **Metrics:** Evaluate models using $R^2$ and MSE.
+- **Analysis:** Discuss the "Montana Anomaly" (local hotspots preceding state trends) and the strong state-county coupling in Georgia.
 
