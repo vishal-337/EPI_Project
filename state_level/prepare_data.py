@@ -53,10 +53,51 @@ def process_state_data():
     print(f"Saved merged state data to {out_path}")
 
 def process_county_data():
-    # Placeholder for Step 2 of your plan
-    print("Processing County Data... (To be implemented)")
-    # TODO: Load 'County Opioid Dispensing Rates_Complete.csv'
-    pass
+    print("Processing County Data...")
+    county_path = os.path.join(DATA, "County Opioid Dispensing Rates_Complete.csv")
+    
+    if not os.path.exists(county_path):
+        print(f"Error: County data file not found at {county_path}")
+        return
+
+    df = pd.read_csv(county_path)
+    
+    # 1. Clean Rate Column
+    # Convert "Data unavailable" and other non-numeric strings to NaN
+    df["opioid_dispensing_rate"] = pd.to_numeric(df["opioid_dispensing_rate"], errors="coerce")
+    
+    # 2. Clean FIPS Codes
+    # Ensure FIPS are 5-digit strings (e.g., 2013 -> "02013")
+    # Handle potential float/int issues by converting to int first if possible, then str
+    # Some FIPS might be read as floats (e.g. 2013.0)
+    df["STATE_COUNTY_FIP_U"] = pd.to_numeric(df["STATE_COUNTY_FIP_U"], errors='coerce').fillna(0).astype(int)
+    df["FIPS"] = df["STATE_COUNTY_FIP_U"].astype(str).str.zfill(5)
+    
+    # 3. Select and Rename Columns
+    # We need: YEAR, STATE_ABBREV, COUNTY_NAME, FIPS, opioid_dispensing_rate
+    cols = ["YEAR", "STATE_ABBREV", "COUNTY_NAME", "FIPS", "opioid_dispensing_rate"]
+    
+    # Check if columns exist
+    missing_cols = [c for c in cols if c not in df.columns and c != "FIPS"]
+    if missing_cols:
+        print(f"Warning: Missing columns in county data: {missing_cols}")
+    
+    df = df[cols]
+    
+    # 4. Drop Missing Data
+    initial_len = len(df)
+    df = df.dropna(subset=["opioid_dispensing_rate", "FIPS", "YEAR"])
+    dropped_len = initial_len - len(df)
+    if dropped_len > 0:
+        print(f"Dropped {dropped_len} rows with missing dispensing rates or FIPS.")
+
+    # 5. Sort and Save
+    df["YEAR"] = df["YEAR"].astype(int)
+    df = df.sort_values(["FIPS", "YEAR"])
+    
+    out_path = os.path.join(PROC, "dispensing_county_year.csv")
+    df.to_csv(out_path, index=False)
+    print(f"Saved processed county data to {out_path}")
 
 if __name__ == "__main__":
     process_state_data()
