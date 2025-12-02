@@ -178,11 +178,11 @@
     <section id="summary">
         <h2>Project Summary</h2>
         <p>
-            This project employs network science and computational epidemiology to model the US Opioid Epidemic as a contagious diffusion process. 
+            This project uses network science and spatial modeling to analyze the US Opioid Epidemic as a diffusion process. 
             By analyzing CDC dispensing rate data from 2006 to 2018, we constructed influence networks at both state and county levels to uncover how high-prescribing behaviors spread across geographic borders.
         </p>
         <p>
-            Our approach treats "high adoption" (extreme over-prescribing) as an infection, allowing us to identify "super-spreader" regions, simulate the crisis's trajectory, and evaluate the potential impact of counterfactual policy interventions.
+            Our approach combines two techniques: (1) influence network construction to identify which regions preceded others in adopting high-prescribing behavior, and (2) spatial autoregressive models to predict future prescribing rates and quantify spatial spillover effects.
         </p>
     </section>
 
@@ -191,19 +191,20 @@
         <h2>Key Results</h2>
         <ul>
             <li>
-                <strong>Geography Drives the Crisis (State Level):</strong> High opioid prescribing rates diffuse spatially through geographic proximity—states neighboring high-prescribers are more likely to adopt similar patterns. Confirmed with <strong>R² = 0.884</strong>. The spatial autoregressive model shows prescribing is highly path-dependent (β = 0.981) with modest neighbor spillover (γ = 0.009). Tennessee, Nevada, and South Carolina were primary influencers, with the Southeast forming a distinct high-prescribing cluster.
+                <strong>Strong Prediction Performance:</strong> 
+                Our spatial autoregressive model achieves <strong>R² = 0.884</strong> at state level and <strong>R² = 0.792</strong> at county level, demonstrating that future prescribing rates can be reliably predicted from historical patterns and geographic context.
             </li>
             <li>
-                <strong>Super-Spreaders Identified:</strong> 
-                <strong>Tennessee</strong> emerged as the primary national influencer (highest Out-Degree), while <strong>Florida</strong> acted as a critical regional hub (highest Eigenvector Centrality).
+                <strong>High Path Dependence:</strong> 
+                Prescribing behavior is highly persistent (β = 0.981 at state level, β = 0.950 at county level). Regions that become high-prescribers tend to remain so, with modest but measurable neighbor spillover effects.
             </li>
             <li>
-                <strong>Early Warning Signs:</strong> 
-                At the county level, specific "super-spreader" counties (e.g., in Montana and Kansas) adopted high-prescribing behaviors up to <strong>6 years</strong> before their respective states, serving as early entry points for the epidemic.
+                <strong>Key Influencers Identified:</strong> 
+                <strong>Tennessee</strong> emerged as the primary state-level influencer (highest Out-Degree weight of 1.67), followed by Nevada and South Carolina. The Southeast forms a densely connected high-prescribing cluster.
             </li>
             <li>
-                <strong>Policy Implications:</strong> 
-                Simulations suggest that blocking single states is ineffective due to network redundancy. However, coordinated regional interventions (blocking a cluster like TN-AL-SC) could have significantly reduced the epidemic's reach.
+                <strong>Superspreader Counties:</strong> 
+                We identified <strong>345 counties</strong> that adopted high-prescribing rates before their states crossed the threshold. Montana counties led by 6 years, followed by Kansas (5 years) and Idaho (4 years)—these early hotspots represent potential targets for early intervention.
             </li>
         </ul>
     </section>
@@ -215,9 +216,7 @@
             <a href="report.pdf" class="btn">📄 Download Project Report (PDF)</a>
             <a href="software.tar.gz" class="btn btn-secondary">📦 Download Software (Tarball)</a>
         </div>
-        <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #666;">
-            <em>Note: Ensure these files are uploaded to your repository in the same directory.</em>
-        </p>
+
     </section>
 
     <!-- Team Members -->

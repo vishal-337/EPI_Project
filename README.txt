@@ -1,14 +1,6 @@
 ================================================================================
-                    OPIOID DISPENSING RATE ANALYSIS
-                          User's Manual
+                        Opioid Epidemic Network Modeling
 ================================================================================
-
-DESCRIPTION
------------
-This package analyzes the spatial diffusion of opioid prescribing rates across 
-US states and counties (2006-2018). It builds influence networks to identify 
-which geographic regions drove the spread of high prescribing behavior, and 
-uses spatial autoregressive models to predict future rates.
 
 
 INSTALLATION

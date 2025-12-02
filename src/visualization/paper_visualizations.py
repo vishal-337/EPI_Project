@@ -23,7 +23,6 @@ PROC = os.path.join(DATA, "processed")
 OUT = os.path.join(PROJECT_ROOT, "outputs")
 os.makedirs(OUT, exist_ok=True)
 
-# Approximate US state positions for network layout (lon, lat scaled)
 STATE_POSITIONS = {
     'WA': (0.12, 0.92), 'OR': (0.10, 0.78), 'CA': (0.08, 0.55), 'NV': (0.15, 0.60),
     'ID': (0.22, 0.78), 'MT': (0.30, 0.90), 'WY': (0.32, 0.72), 'UT': (0.23, 0.58),

@@ -14,16 +14,16 @@ def main():
 
     df = pd.read_csv(csv_path)
     
-    # Top 15 superspreaders
-    top = df.head(15).sort_values("years_early", ascending=True)
+    top_per_state = df.groupby("STATE_ABBREV").first().reset_index()
+    
+    top = top_per_state.nlargest(10, "years_early").sort_values("years_early", ascending=True)
     
     plt.figure(figsize=(10, 8))
-    # Create label: "County, ST"
     labels = top["COUNTY_NAME"] + ", " + top["STATE_ABBREV"]
     
     plt.barh(labels, top["years_early"], color="#d62728")
     plt.xlabel("Years Early (County Adoption - State Adoption)")
-    plt.title("Top 15 'Super-Spreader' Counties\n(Adopted High Rates Before Their State)")
+    plt.title("Top 'Super-Spreader' County by State\n(Adopted High Rates Before Their State)")
     plt.grid(axis='x', linestyle='--', alpha=0.7)
     plt.tight_layout()
     

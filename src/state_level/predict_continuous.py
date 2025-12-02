@@ -12,7 +12,6 @@ PROC = os.path.join(DATA, "processed")
 OUT = os.path.join(PROJECT_ROOT, "outputs")
 os.makedirs(OUT, exist_ok=True)
 
-# --- Geographic Adjacency Dictionary (Same as build_influence_network.py) ---
 NEIGHBORS = {
     'AL': ['FL', 'GA', 'MS', 'TN'],
     'AK': [],
@@ -68,44 +67,33 @@ NEIGHBORS = {
 }
 
 def prepare_regression_data(df):
-    """
-    Constructs the feature matrix for the Spatial Autoregressive Model.
-    Target: Rate(t+1)
-    Features: 
-      - Rate(t) (Autoregression)
-      - Mean_Neighbor_Rate(t) (Spatial Influence)
-    """
     X = []
     y = []
-    meta = [] # Stores (Year, State) for tracking
+    meta = []
 
     states = df["STATE_ABBREV"].unique()
     years = sorted(df["YEAR"].unique())
 
-    # Create a lookup dictionary for fast access: rate_map[year][state] = rate
     rate_map = {}
     for yr in years:
         rate_map[yr] = df[df["YEAR"] == yr].set_index("STATE_ABBREV")["opioid_dispensing_rate"].to_dict()
 
-    for t in years[:-1]: # Can't predict for the last year
+    for t in years[:-1]:
         for s in states:
             if s not in rate_map[t] or s not in rate_map[t+1]:
                 continue
             
-            # Target: Next Year's Rate
             target_val = rate_map[t+1][s]
             
-            # Feature 1: Current Rate (Self-History)
             current_val = rate_map[t][s]
             
-            # Feature 2: Spatial Influence (Average of Neighbors)
             neighbors = NEIGHBORS.get(s, [])
             neighbor_vals = [rate_map[t][n] for n in neighbors if n in rate_map[t]]
             
             if len(neighbor_vals) > 0:
                 spatial_val = np.mean(neighbor_vals)
             else:
-                spatial_val = 0 # Isolated states like AK, HI
+                spatial_val = 0
             
             X.append([current_val, spatial_val])
             y.append(target_val)
@@ -117,19 +105,14 @@ def main():
     print("Loading Data...")
     df = pd.read_csv(os.path.join(PROC, "dispensing_state_year.csv"))
     
-    # Split into Train (2006-2016) and Test (2017-2020)
-    # Note: We predict t+1, so training on 2006-2016 means predicting 2007-2017
     train_df = df[df["YEAR"] <= 2016]
-    test_df = df[df["YEAR"] > 2016] # This will be used to validate predictions for 2017+
+    test_df = df[df["YEAR"] > 2016]
     
     print("Preparing Regression Matrices...")
     X_train, y_train, meta_train = prepare_regression_data(train_df)
     
-    # For testing, we need the full dataset to look back at previous years
-    # But we only evaluate on the test years
     X_full, y_full, meta_full = prepare_regression_data(df)
     
-    # Filter test set based on meta_full years
     test_indices = [i for i, (yr, st) in enumerate(meta_full) if yr > 2017]
     X_test = X_full[test_indices]
     y_test = y_full[test_indices]
@@ -138,12 +121,10 @@ def main():
     print(f"Training Samples: {len(X_train)}")
     print(f"Testing Samples: {len(X_test)}")
 
-    # --- Model Training ---
     print("Training Spatial Autoregressive Model...")
     model = LinearRegression()
     model.fit(X_train, y_train)
     
-    # Coefficients
     beta_self = model.coef_[0]
     beta_spatial = model.coef_[1]
     intercept = model.intercept_
@@ -157,7 +138,6 @@ def main():
     print(f" - Self-Persistence (Beta): {beta_self:.3f} (Strong history dependence)")
     print(f" - Spatial Influence (Gamma): {beta_spatial:.3f} (Spillover effect from neighbors)")
     
-    # --- Evaluation ---
     y_pred = model.predict(X_test)
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
@@ -167,7 +147,6 @@ def main():
     print(f"Test R2 Score: {r2:.3f}")
     print("="*40)
 
-    # --- Save Predictions ---
     results = []
     for i, (yr, st) in enumerate(meta_test):
         results.append({
@@ -183,7 +162,6 @@ def main():
     res_df.to_csv(res_path, index=False)
     print(f"\nDetailed predictions saved to {res_path}")
 
-    # --- Visualization ---
     plt.figure(figsize=(10, 6))
     plt.scatter(y_test, y_pred, alpha=0.5, color='blue')
     plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
