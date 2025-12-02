@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opioid Epidemic Network Modeling - Poster</title>
     <style>
+        @page {
+            size: 24in 36in;
+            margin: 0;
+        }
+        
+        @media print {
+            body {
+                width: 24in;
+                height: 36in;
+                margin: 0;
+                padding: 0;
+            }
+            .poster {
+                width: 24in !important;
+                min-height: 36in !important;
+                box-shadow: none;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -19,10 +38,10 @@
             justify-content: center;
         }
 
-        /* Standard Poster Size: 36x48 inches (ARCH E) or similar aspect ratio */
+        /* Poster Size: 24x36 inches - scaled for screen viewing (maintains 2:3 aspect ratio) */
         .poster {
-            width: 1200px; /* Scaled down for screen viewing */
-            min-height: 1600px; /* 3:4 aspect ratio approx */
+            width: 1200px; /* 24 inches at ~50px per inch for screen */
+            min-height: 1800px; /* 36 inches at ~50px per inch for screen */
             background: white;
             padding: 40px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -196,8 +215,8 @@
         <!-- Header -->
         <div class="header">
             <h1>Opioid Epidemic Network Modeling</h1>
-            <div class="subtitle">Spatial Diffusion of High-Prescribing Behaviors Across States and Counties</div>
-            <div class="authors">Rishi Bandi & Vishal Maradana</div>
+            <div class="subtitle">Modeling High-Rate Opioid Prescribing as Spatial Contagion Across U.S. States and Counties</div>
+            <div class="authors">Vishal Maradana & Rishi Bandi | Georgia Institute of Technology</div>
         </div>
 
         <!-- Left Column -->
@@ -206,11 +225,17 @@
             <div class="card">
                 <div class="card-title">Introduction</div>
                 <div class="card-content">
-                    <p>The US Opioid Crisis claimed over 500,000 lives (1999-2019). Traditional approaches treat regions as independent units, missing a critical mechanism: <strong>spatial diffusion</strong>.</p>
+                    <p>The opioid crisis has killed over <strong>500,000 Americans</strong> since the late 1990s. Traditional approaches treat regions independently, overlooking how prescribing behaviors may spread across boundaries.</p>
                     <div class="highlight">
-                        Research Question: How does high-prescribing behavior spread across geographic boundaries?
+                        Research Question: Does high-rate opioid prescribing diffuse geographically across U.S. states and counties like a contagion?
                     </div>
-                    <p><strong>Hypothesis:</strong> Opioid prescribing patterns diffuse spatially through neighbor influence, similar to a contagion.</p>
+                    <p><strong>Key Insight:</strong> Healthcare practices travel via professional networks, hospital cultures, and regional policies—suggesting prescribing norms may spread spatially.</p>
+                    <p><strong>Objectives:</strong></p>
+                    <ul>
+                        <li>Infer directed influence networks identifying early adopter regions</li>
+                        <li>Predict future prescribing rates using spatial autoregressive models</li>
+                        <li>Compare dynamics at state vs. county scales</li>
+                    </ul>
                 </div>
             </div>
 
@@ -218,25 +243,28 @@
             <div class="card">
                 <div class="card-title">Methodology</div>
                 <div class="card-content">
-                    <p><strong>1. Network Science Framework</strong></p>
+                    <p><strong>1. High-Prescribing Classification</strong></p>
                     <ul>
-                        <li><strong>Nodes:</strong> States/Counties</li>
-                        <li><strong>Edges:</strong> Geographic adjacency</li>
-                        <li><strong>Infection:</strong> Rate > 87.35 (75th percentile)</li>
+                        <li><strong>State-level:</strong> Rate > 87.35 per 100 persons (75th percentile)</li>
+                        <li><strong>County-level:</strong> State-specific 75th percentile thresholds</li>
                     </ul>
-                    <p><strong>2. SAR Model</strong></p>
-                    <p><em>Rate(t+1) = β×Rate(t) + γ×Neighbor_Rate(t)</em></p>
+                    <p><strong>2. Influence Network Construction</strong></p>
+                    <p>For consecutive years (t, t+1), edges drawn from existing high-prescribers to new adopters among geographic neighbors:</p>
+                    <p style="text-align: center; font-style: italic; margin: 10px 0;">w(s→n) = Σ 1/(1 + (t - t<sub>s</sub>))</p>
+                    <p><strong>3. Spatial Autoregressive (SAR) Model</strong></p>
+                    <p style="text-align: center; font-style: italic; margin: 10px 0;">R<sub>s,t+1</sub> = α + β·R<sub>s,t</sub> + γ·R̄<sub>N(s),t</sub> + ε</p>
                     <div class="stat-box">
                         <div class="stat-item">
-                            <h3>0.981</h3>
-                            <span>Path Dependence (β)</span>
+                            <h3>β</h3>
+                            <span>Self-Persistence</span>
                         </div>
                         <div class="stat-item">
-                            <h3>0.009</h3>
-                            <span>Neighbor Spillover (γ)</span>
+                            <h3>γ</h3>
+                            <span>Spatial Spillover</span>
                         </div>
                     </div>
-                    <p><strong>Why SAR?</strong> Unlike standard regression, SAR captures spatial autocorrelation, validating that geography drives the epidemic.</p>
+                    <p><strong>4. Influence Ranking</strong></p>
+                    <p>Weighted out-degree centrality: C<sub>out</sub>(s) = Σ w(s→n)</p>
                 </div>
             </div>
 
@@ -251,15 +279,17 @@
                 </div>
             </div>
 
-            <!-- Data Source (New) -->
+            <!-- Data Source -->
              <div class="card">
                 <div class="card-title">Data Overview</div>
                 <div class="card-content">
                     <ul>
-                        <li><strong>Source:</strong> CDC Dispensing Rates</li>
-                        <li><strong>Coverage:</strong> 2006-2023 (States), 2006-2019 (Counties)</li>
-                        <li><strong>Scope:</strong> 50 States, 3,000+ Counties</li>
+                        <li><strong>Source:</strong> CDC Opioid Dispensing Rates</li>
+                        <li><strong>State-level:</strong> 51 states, 2006-2018</li>
+                        <li><strong>County-level:</strong> ~3,000 counties per year</li>
                         <li><strong>Metric:</strong> Prescriptions per 100 persons</li>
+                        <li><strong>Training:</strong> 2006-2016</li>
+                        <li><strong>Testing:</strong> 2017-2018</li>
                     </ul>
                 </div>
             </div>
@@ -270,34 +300,67 @@
         <div class="col-center">
             <!-- Key Results -->
             <div class="card">
-                <div class="card-title">Key Results (State Level)</div>
+                <div class="card-title">State-Level Results</div>
                 <div class="card-content">
                     <div class="highlight" style="text-align: center; font-size: 18px;">
-                        R² = 0.884 <br> <span style="font-size: 14px; font-weight: normal;">Strong Spatial Autocorrelation Confirmed</span>
+                        R² = 0.884 | MSE = 21.58 <br> <span style="font-size: 14px; font-weight: normal;">Strong Predictive Performance on Test Set</span>
                     </div>
+                    
+                    <p><strong>Model Coefficients:</strong></p>
+                    <div class="stat-box">
+                        <div class="stat-item">
+                            <h3>0.981</h3>
+                            <span>Self-Persistence (β)</span>
+                        </div>
+                        <div class="stat-item">
+                            <h3>0.009</h3>
+                            <span>Spatial Spillover (γ)</span>
+                        </div>
+                    </div>
+                    
+                    <p><strong>Interpretation:</strong> High self-persistence (98.1%) indicates prescribing rates are path-dependent — states reaching high rates tend to stay there. Spatial spillover, while small (0.9%), confirms neighbor rates carry predictive information.</p>
                     
                     <div class="img-box">
                         <img src="images/top_influencers_bar.png" alt="Top Influencers">
-                        <div class="caption">Fig 2: Tennessee ranks #1 as primary national influencer (Out-Degree).</div>
+                        <div class="caption">Fig 2: Top 5 influential states by weighted out-degree centrality.</div>
                     </div>
 
-                    <div class="img-box">
-                        <img src="images/historical_adoption_curve.png" alt="Adoption Timeline">
-                        <div class="caption">Fig 3: Cumulative adoption showing distinct Southeast cluster formation.</div>
-                    </div>
-
-                    <p><strong>Super-Spreaders:</strong> Tennessee (National Influencer), Florida (Regional Hub).</p>
+                    <p><strong>Top 5 Influential States:</strong></p>
+                    <ol>
+                        <li>Tennessee (1.67) — early adopter, central location</li>
+                        <li>Nevada (1.50)</li>
+                        <li>South Carolina (1.33)</li>
+                        <li>Georgia (1.00)</li>
+                        <li>Alabama (0.58)</li>
+                    </ol>
                 </div>
             </div>
 
             <!-- Predictive Power -->
             <div class="card">
-                <div class="card-title">Predictive Accuracy</div>
+                <div class="card-title">Prediction Performance</div>
                 <div class="card-content">
                     <div class="img-box">
                         <img src="images/continuous_prediction_scatter.png" alt="Prediction Scatter">
-                        <div class="caption">Fig 4: Predicted vs. Actual Rates. Strong linear fit confirms model accuracy.</div>
+                        <div class="caption">Fig 3: State-level predicted vs. actual rates (R² = 0.884).</div>
                     </div>
+                    
+                    <div class="img-box">
+                        <img src="images/historical_adoption_curve.png" alt="Adoption Timeline">
+                        <div class="caption">Fig 4: Cumulative adoption showing Southeast cluster formation.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Superspreader Counties -->
+            <div class="card">
+                <div class="card-title">Top Superspreader Counties</div>
+                <div class="card-content">
+                    <div class="img-box">
+                        <img src="images/top_superspreaders.png" alt="Superspreader Counties">
+                        <div class="caption">Fig 5: Counties that adopted high rates years before their state threshold.</div>
+                    </div>
+                    <p><strong>Key Early Adopters:</strong> Valley County, MT led by 6 years, followed by Morton County, KS (5 years). These hotspots represent targets for early intervention.</p>
                 </div>
             </div>
         </div>
@@ -306,58 +369,87 @@
         <div class="col-right">
             <!-- County Level -->
             <div class="card">
-                <div class="card-title">County Early Warning</div>
+                <div class="card-title">County-Level Analysis</div>
                 <div class="card-content">
-                    <p><strong>Super-Spreader Counties:</strong> Adopted high-prescribing behaviors up to <strong>6 years</strong> before their state.</p>
+                    <p><strong>Superspreader Counties:</strong> We identified <strong>345 counties</strong> that adopted high-prescribing rates before their states crossed the threshold.</p>
                     
-                    <div class="img-box">
-                        <img src="images/top_influential_counties.png" alt="County Rankings">
-                        <div class="caption">Fig 5: Texas counties dominate intra-state influence rankings.</div>
+                    <div class="stat-box">
+                        <div class="stat-item">
+                            <h3>345</h3>
+                            <span>Superspreader Counties</span>
+                        </div>
+                        <div class="stat-item">
+                            <h3>6 yrs</h3>
+                            <span>Max Early Adoption</span>
+                        </div>
                     </div>
+                    
+                    <p><strong>County Model Performance:</strong></p>
+                    <ul>
+                        <li>R² = 0.792 (National)</li>
+                        <li>Self-persistence (β) = 0.950</li>
+                        <li>State Effect (γ) = 0.050</li>
+                    </ul>
                     
                     <div class="img-box">
                         <img src="images/county_prediction_scatter.png" alt="County Prediction">
-                        <div class="caption">Fig 6: County predictions achieve 42% accuracy in forecasting hotspots.</div>
+                        <div class="caption">Fig 6: County-level predicted vs. actual rates (R² = 0.792).</div>
                     </div>
+                    
+                    <p><strong>Key Finding:</strong> County-level shows <strong>stronger spatial effects (5%)</strong> than state-level (1%), indicating finer-scale geographic dynamics.</p>
                 </div>
             </div>
 
-            <!-- Policy Impact -->
+            <!-- Georgia Case Study -->
             <div class="card">
-                <div class="card-title">Policy Interventions</div>
+                <div class="card-title">Georgia Case Study</div>
                 <div class="card-content">
-                    <div class="img-box">
-                        <img src="images/intervention_impact_line.png" alt="Policy Impact">
-                        <div class="caption">Fig 7: Counterfactual simulations.</div>
+                    <p>Georgia-specific county model reveals stronger state-level influence:</p>
+                    <div class="stat-box">
+                        <div class="stat-item">
+                            <h3>0.968</h3>
+                            <span>Self-Persistence (β)</span>
+                        </div>
+                        <div class="stat-item">
+                            <h3>0.315</h3>
+                            <span>State Effect (γ)</span>
+                        </div>
                     </div>
-                    <div class="highlight">
-                        Finding: Blocking single states = Ineffective. <br>
-                        Blocking regional clusters (TN+AL+SC) = Effective (-3 states).
-                    </div>
+                    <p><strong>Implication:</strong> Georgia counties are heavily influenced by state-wide trends (31.5% effect), suggesting state-level policies could be particularly effective here.</p>
                 </div>
             </div>
 
             <!-- Conclusion -->
             <div class="card">
-                <div class="card-title">Conclusions & Future Work</div>
+                <div class="card-title">Key Findings</div>
                 <div class="card-content">
                     <ul>
-                        <li><strong>Geography matters:</strong> Spatial proximity drives diffusion (R²=0.884).</li>
-                        <li><strong>Predictive Power:</strong> Network models forecast hotspots 5-6x better than random.</li>
-                        <li><strong>Policy:</strong> Regional coordination is required; single-state laws fail due to network redundancy.</li>
+                        <li><strong>High Path Dependence:</strong> Self-persistence dominates (β > 0.95) — regions that become high-prescribers tend to remain so.</li>
+                        <li><strong>Measurable Spatial Spillover:</strong> Neighbor effects are small but detectable, stronger at county level (5%) than state level (1%).</li>
+                        <li><strong>Top State Influencers:</strong> Tennessee, Nevada, and South Carolina consistently preceded neighboring states in adoption.</li>
+                        <li><strong>Early Hotspots:</strong> 345 superspreader counties identified; Montana counties led by 6 years.</li>
                     </ul>
-                    <p style="margin-top: 10px; font-weight: bold;">Future Work:</p>
+                </div>
+            </div>
+
+            <!-- Conclusions & Future Work -->
+            <div class="card">
+                <div class="card-title">Conclusion</div>
+                <div class="card-content">
+                    <p><strong>Conclusions:</strong></p>
                     <ul>
-                        <li>Incorporate PDMP implementation dates.</li>
-                        <li>Model county-to-county border spillover.</li>
+                        <li>High-prescribing behavior exhibits spatial contagion patterns across U.S. states and counties.</li>
+                        <li>Prevention of initial high-rate adoption is more effective than reversing established patterns.</li>
+                        <li>Results support regionally coordinated interventions over isolated state-by-state approaches.</li>
                     </ul>
+
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            Data Source: CDC Opioid Dispensing Rate Data (2006-2023) • Methodology: Spatial Autoregressive Modeling & Network Analysis
+            <strong>Data Source:</strong> CDC Opioid Dispensing Rate Data (2006-2018) | <strong>Methods:</strong> Spatial Autoregressive Modeling & Network Influence Analysis | <strong>Contact:</strong> vmaradana3@gatech.edu, rbandi6@gatech.edu
         </div>
     </div>
 </body>
