@@ -24,7 +24,7 @@ def parse_txt_file(filepath, year):
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # Find the data section - look for lines with county data
+
     lines = content.split('\n')
     
     data_rows = []
@@ -133,7 +133,7 @@ combined_df = combined_df.sort_values(['YEAR', 'STATE_ABBREV', 'COUNTY_NAME'])
 
 print(f"Combined data has {len(combined_df)} rows")
 
-# Save to new CSV
+
 output_file = 'County Opioid Dispensing Rates_Complete.csv'
 combined_df.to_csv(output_file, index=False)
 

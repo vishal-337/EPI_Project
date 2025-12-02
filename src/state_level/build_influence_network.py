@@ -61,7 +61,7 @@ NEIGHBORS = {
     'WV': ['KY', 'MD', 'OH', 'PA', 'VA'],
     'WI': ['IL', 'IA', 'MI', 'MN'],
     'WY': ['CO', 'ID', 'MT', 'NE', 'SD', 'UT'],
-    'DC': ['MD', 'VA'] # Adding DC just in case
+    'DC': ['MD', 'VA'] 
 }
 
 parser = argparse.ArgumentParser()

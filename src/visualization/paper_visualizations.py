@@ -228,7 +228,7 @@ def plot_model_performance():
     
     fig, axes = plt.subplots(2, 2, figsize=(14, 12))
     
-    # 1. Scatter plot with error bands
+
     ax1 = axes[0, 0]
     ax1.scatter(results_df["Actual_Rate"], results_df["Predicted_Rate"], alpha=0.5, c='#3498db', s=30)
     
@@ -244,7 +244,7 @@ def plot_model_performance():
     ax1.legend()
     ax1.grid(True, alpha=0.3)
     
-    # 2. Error distribution
+
     ax2 = axes[0, 1]
     errors = results_df["Error"]
     ax2.hist(errors, bins=30, color='#e74c3c', edgecolor='white', alpha=0.7)
@@ -256,7 +256,7 @@ def plot_model_performance():
     ax2.legend()
     ax2.grid(True, alpha=0.3)
     
-    # 3. Error by year
+
     ax3 = axes[1, 0]
     year_errors = results_df.groupby("YEAR")["Error"].agg(['mean', 'std']).reset_index()
     ax3.bar(year_errors["YEAR"], year_errors["mean"], yerr=year_errors["std"], 
@@ -266,8 +266,7 @@ def plot_model_performance():
     ax3.set_ylabel("Mean Prediction Error", fontsize=11)
     ax3.set_title("Prediction Error by Year", fontsize=12, fontweight='bold')
     ax3.grid(True, alpha=0.3)
-    
-    # 4. Top/Bottom predicted states
+ 
     ax4 = axes[1, 1]
     state_errors = results_df.groupby("STATE_ABBREV")["Error"].mean().sort_values()
     

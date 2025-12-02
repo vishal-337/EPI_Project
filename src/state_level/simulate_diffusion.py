@@ -119,7 +119,7 @@ def main():
         total_correct += num_correct
         total_predicted += k
 
-    # --- Summary ---
+
     print("\n" + "="*40)
     print("SIMULATION SUMMARY")
     print("="*40)
