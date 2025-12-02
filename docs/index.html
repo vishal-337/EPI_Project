@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opioid Epidemic Network Modeling</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .team-member {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .avatar-placeholder {
+            width: 120px;
+            height: 120px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.8rem;
+            border: 3px solid var(--accent-color);
+            overflow: hidden;
+        }
+
+        .avatar-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .downloads {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #1a252f;
+        }
+
+        .results-summary ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .results-summary li {
+            background: #f0f4f8;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .downloads { flex-direction: column; }
+            .btn { width: 100%; box-sizing: border-box; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Opioid Epidemic Network Modeling</h1>
+        <p>Analyzing the Spatial and Temporal Spread of High-Prescribing Behaviors</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- Project Summary -->
+    <section id="summary">
+        <h2>Project Summary</h2>
+        <p>
+            This project employs network science and computational epidemiology to model the US Opioid Epidemic as a contagious diffusion process. 
+            By analyzing CDC dispensing rate data from 2006 to 2018, we constructed influence networks at both state and county levels to uncover how high-prescribing behaviors spread across geographic borders.
+        </p>
+        <p>
+            Our approach treats "high adoption" (extreme over-prescribing) as an infection, allowing us to identify "super-spreader" regions, simulate the crisis's trajectory, and evaluate the potential impact of counterfactual policy interventions.
+        </p>
+    </section>
+
+    <!-- Key Results -->
+    <section id="results" class="results-summary">
+        <h2>Key Results</h2>
+        <ul>
+            <li>
+                <strong>Geography Drives the Crisis:</strong> Our spatially constrained influence model predicts new epidemic hotspots with <strong>42% accuracy</strong>, far outperforming random baselines (~3%).
+            </li>
+            <li>
+                <strong>Super-Spreaders Identified:</strong> 
+                <strong>Tennessee</strong> emerged as the primary national influencer (highest Out-Degree), while <strong>Florida</strong> acted as a critical regional hub (highest Eigenvector Centrality).
+            </li>
+            <li>
+                <strong>Early Warning Signs:</strong> 
+                At the county level, specific "super-spreader" counties (e.g., in Montana and Kansas) adopted high-prescribing behaviors up to <strong>6 years</strong> before their respective states, serving as early entry points for the epidemic.
+            </li>
+            <li>
+                <strong>Policy Implications:</strong> 
+                Simulations suggest that blocking single states is ineffective due to network redundancy. However, coordinated regional interventions (blocking a cluster like TN-AL-SC) could have significantly reduced the epidemic's reach.
+            </li>
+        </ul>
+    </section>
+
+    <!-- Downloads -->
+    <section id="downloads">
+        <h2>Downloads</h2>
+        <div class="downloads">
+            <a href="report.pdf" class="btn">📄 Download Project Report (PDF)</a>
+            <a href="software.tar.gz" class="btn btn-secondary">📦 Download Software (Tarball)</a>
+        </div>
+        <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #666;">
+            <em>Note: Ensure these files are uploaded to your repository in the same directory.</em>
+        </p>
+    </section>
+
+    <!-- Team Members -->
+    <section id="team">
+        <h2>Meet the Team</h2>
+        <div class="team-grid">
+            <!-- Member 1 -->
+            <div class="team-member">
+                <div class="avatar-placeholder">
+                    <!-- Replace with <img src="member1.jpg" alt="Member Name"> -->
+                    <span>Photo</span>
+                </div>
+                <h3>Member Name</h3>
+                <p>Role / Specialization</p>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="team-member">
+                <div class="avatar-placeholder">
+                     <!-- Replace with <img src="member2.jpg" alt="Member Name"> -->
+                    <span>Photo</span>
+                </div>
+                <h3>Member Name</h3>
+                <p>Role / Specialization</p>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="team-member">
+                <div class="avatar-placeholder">
+                     <!-- Replace with <img src="member3.jpg" alt="Member Name"> -->
+                    <span>Photo</span>
+                </div>
+                <h3>Member Name</h3>
+                <p>Role / Specialization</p>
+            </div>
+            
+            <!-- Add more members as needed -->
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 Opioid Epidemic Network Modeling Project. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
+
