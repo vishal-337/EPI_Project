@@ -75,6 +75,7 @@
             padding: 1.5rem;
             border-radius: 8px;
             transition: transform 0.2s;
+            text-align: center;
         }
 
         .team-member:hover {
@@ -94,12 +95,15 @@
             font-size: 0.8rem;
             border: 3px solid var(--accent-color);
             overflow: hidden;
+            position: relative;
         }
 
         .avatar-placeholder img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
+            margin: 0 auto;
         }
 
         .downloads {
@@ -187,7 +191,7 @@
         <h2>Key Results</h2>
         <ul>
             <li>
-                <strong>Geography Drives the Crisis:</strong> Our spatially constrained influence model predicts new epidemic hotspots with <strong>42% accuracy</strong>, far outperforming random baselines (~3%).
+                <strong>Geography Drives the Crisis (State Level):</strong> High opioid prescribing rates diffuse spatially through geographic proximity—states neighboring high-prescribers are more likely to adopt similar patterns. Confirmed with <strong>R² = 0.884</strong>. The spatial autoregressive model shows prescribing is highly path-dependent (β = 0.981) with modest neighbor spillover (γ = 0.009). Tennessee, Nevada, and South Carolina were primary influencers, with the Southeast forming a distinct high-prescribing cluster.
             </li>
             <li>
                 <strong>Super-Spreaders Identified:</strong> 
@@ -223,32 +227,19 @@
             <!-- Member 1 -->
             <div class="team-member">
                 <div class="avatar-placeholder">
-                    <!-- Replace with <img src="member1.jpg" alt="Member Name"> -->
-                    <span>Photo</span>
+                    <img src="personal_picture1.jpeg" alt="Rishi Bandi"> 
                 </div>
-                <h3>Member Name</h3>
-                <p>Role / Specialization</p>
+                <h3>Rishi Bandi</h3>
             </div>
 
             <!-- Member 2 -->
             <div class="team-member">
                 <div class="avatar-placeholder">
-                     <!-- Replace with <img src="member2.jpg" alt="Member Name"> -->
-                    <span>Photo</span>
+                    <img src="personal_picture2.jpeg" alt="Vishal Maradana"> 
                 </div>
-                <h3>Member Name</h3>
-                <p>Role / Specialization</p>
+                <h3>Vishal Maradana</h3>
             </div>
 
-            <!-- Member 3 -->
-            <div class="team-member">
-                <div class="avatar-placeholder">
-                     <!-- Replace with <img src="member3.jpg" alt="Member Name"> -->
-                    <span>Photo</span>
-                </div>
-                <h3>Member Name</h3>
-                <p>Role / Specialization</p>
-            </div>
             
             <!-- Add more members as needed -->
         </div>
