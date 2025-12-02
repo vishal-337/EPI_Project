@@ -23,14 +23,11 @@ def plot_network():
 
     plt.figure(figsize=(12, 10))
     
-    # Calculate degrees for node size
     d = dict(G.degree(weight='weight'))
     node_sizes = [v * 100 + 300 for v in d.values()]
     
-    # Layout
     pos = nx.spring_layout(G, k=0.5, iterations=50, seed=42)
     
-    # Draw
     nx.draw_networkx_nodes(G, pos, node_size=node_sizes, node_color='skyblue', alpha=0.9)
     nx.draw_networkx_edges(G, pos, width=[d['weight'] for u, v, d in G.edges(data=True)], 
                            edge_color='gray', alpha=0.6, arrowsize=20)
@@ -69,7 +66,6 @@ def plot_adoption_timeline():
 
     df = pd.read_csv(adopt_path).sort_values("adoption_year")
     
-    # Count adoptions per year
     counts = df.groupby("adoption_year").size()
     cumulative = counts.cumsum()
     

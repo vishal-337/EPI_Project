@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opioid Epidemic Network Modeling - Poster</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Standard Poster Size: 36x48 inches (ARCH E) or similar aspect ratio */
+        .poster {
+            width: 1200px; /* Scaled down for screen viewing */
+            min-height: 1600px; /* 3:4 aspect ratio approx */
+            background: white;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto auto 1fr auto;
+            gap: 20px;
+        }
+
+        /* --- Header --- */
+        .header {
+            grid-column: 1 / -1;
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 56px;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header .subtitle {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .authors {
+            font-size: 22px;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        /* --- Column Layout --- */
+        .col-left {
+            grid-column: 1 / 5;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .col-center {
+            grid-column: 5 / 9;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .col-right {
+            grid-column: 9 / 13;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* --- Cards --- */
+        .card {
+            background: #fff;
+            border: 2px solid #34495e;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .card-title {
+            background: #34495e;
+            color: white;
+            padding: 10px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 6px 6px 0 0;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .card-content {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        /* --- Images --- */
+        .img-box {
+            text-align: center;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            padding: 5px;
+            background: #f9f9f9;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .caption {
+            font-size: 14px;
+            color: #555;
+            margin-top: 8px;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        /* --- Special Elements --- */
+        .highlight {
+            background: #e8f6f3;
+            border-left: 5px solid #1abc9c;
+            padding: 15px;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #16a085;
+        }
+
+        .stat-box {
+            display: flex;
+            justify-content: space-around;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 32px;
+            color: #e74c3c;
+            margin-bottom: 5px;
+        }
+
+        .stat-item span {
+            font-size: 14px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            grid-column: 1 / -1;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <!-- Header -->
+        <div class="header">
+            <h1>Opioid Epidemic Network Modeling</h1>
+            <div class="subtitle">Spatial Diffusion of High-Prescribing Behaviors Across States and Counties</div>
+            <div class="authors">Rishi Bandi & Vishal Maradana</div>
+        </div>
+
+        <!-- Left Column -->
+        <div class="col-left">
+            <!-- Intro -->
+            <div class="card">
+                <div class="card-title">Introduction</div>
+                <div class="card-content">
+                    <p>The US Opioid Crisis claimed over 500,000 lives (1999-2019). Traditional approaches treat regions as independent units, missing a critical mechanism: <strong>spatial diffusion</strong>.</p>
+                    <div class="highlight">
+                        Research Question: How does high-prescribing behavior spread across geographic boundaries?
+                    </div>
+                    <p><strong>Hypothesis:</strong> Opioid prescribing patterns diffuse spatially through neighbor influence, similar to a contagion.</p>
+                </div>
+            </div>
+
+            <!-- Methodology -->
+            <div class="card">
+                <div class="card-title">Methodology</div>
+                <div class="card-content">
+                    <p><strong>1. Network Science Framework</strong></p>
+                    <ul>
+                        <li><strong>Nodes:</strong> States/Counties</li>
+                        <li><strong>Edges:</strong> Geographic adjacency</li>
+                        <li><strong>Infection:</strong> Rate > 87.35 (75th percentile)</li>
+                    </ul>
+                    <p><strong>2. SAR Model</strong></p>
+                    <p><em>Rate(t+1) = β×Rate(t) + γ×Neighbor_Rate(t)</em></p>
+                    <div class="stat-box">
+                        <div class="stat-item">
+                            <h3>0.981</h3>
+                            <span>Path Dependence (β)</span>
+                        </div>
+                        <div class="stat-item">
+                            <h3>0.009</h3>
+                            <span>Neighbor Spillover (γ)</span>
+                        </div>
+                    </div>
+                    <p><strong>Why SAR?</strong> Unlike standard regression, SAR captures spatial autocorrelation, validating that geography drives the epidemic.</p>
+                </div>
+            </div>
+
+            <!-- Visual 1 -->
+            <div class="card">
+                <div class="card-title">Influence Network</div>
+                <div class="card-content">
+                    <div class="img-box">
+                        <img src="images/influence_network_graph.png" alt="Influence Network">
+                        <div class="caption">Fig 1: State-level influence network showing geographic diffusion.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Source (New) -->
+             <div class="card">
+                <div class="card-title">Data Overview</div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>Source:</strong> CDC Dispensing Rates</li>
+                        <li><strong>Coverage:</strong> 2006-2023 (States), 2006-2019 (Counties)</li>
+                        <li><strong>Scope:</strong> 50 States, 3,000+ Counties</li>
+                        <li><strong>Metric:</strong> Prescriptions per 100 persons</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Center Column -->
+        <div class="col-center">
+            <!-- Key Results -->
+            <div class="card">
+                <div class="card-title">Key Results (State Level)</div>
+                <div class="card-content">
+                    <div class="highlight" style="text-align: center; font-size: 18px;">
+                        R² = 0.884 <br> <span style="font-size: 14px; font-weight: normal;">Strong Spatial Autocorrelation Confirmed</span>
+                    </div>
+                    
+                    <div class="img-box">
+                        <img src="images/top_influencers_bar.png" alt="Top Influencers">
+                        <div class="caption">Fig 2: Tennessee ranks #1 as primary national influencer (Out-Degree).</div>
+                    </div>
+
+                    <div class="img-box">
+                        <img src="images/historical_adoption_curve.png" alt="Adoption Timeline">
+                        <div class="caption">Fig 3: Cumulative adoption showing distinct Southeast cluster formation.</div>
+                    </div>
+
+                    <p><strong>Super-Spreaders:</strong> Tennessee (National Influencer), Florida (Regional Hub).</p>
+                </div>
+            </div>
+
+            <!-- Predictive Power -->
+            <div class="card">
+                <div class="card-title">Predictive Accuracy</div>
+                <div class="card-content">
+                    <div class="img-box">
+                        <img src="images/continuous_prediction_scatter.png" alt="Prediction Scatter">
+                        <div class="caption">Fig 4: Predicted vs. Actual Rates. Strong linear fit confirms model accuracy.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-right">
+            <!-- County Level -->
+            <div class="card">
+                <div class="card-title">County Early Warning</div>
+                <div class="card-content">
+                    <p><strong>Super-Spreader Counties:</strong> Adopted high-prescribing behaviors up to <strong>6 years</strong> before their state.</p>
+                    
+                    <div class="img-box">
+                        <img src="images/top_influential_counties.png" alt="County Rankings">
+                        <div class="caption">Fig 5: Texas counties dominate intra-state influence rankings.</div>
+                    </div>
+                    
+                    <div class="img-box">
+                        <img src="images/county_prediction_scatter.png" alt="County Prediction">
+                        <div class="caption">Fig 6: County predictions achieve 42% accuracy in forecasting hotspots.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Policy Impact -->
+            <div class="card">
+                <div class="card-title">Policy Interventions</div>
+                <div class="card-content">
+                    <div class="img-box">
+                        <img src="images/intervention_impact_line.png" alt="Policy Impact">
+                        <div class="caption">Fig 7: Counterfactual simulations.</div>
+                    </div>
+                    <div class="highlight">
+                        Finding: Blocking single states = Ineffective. <br>
+                        Blocking regional clusters (TN+AL+SC) = Effective (-3 states).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="card">
+                <div class="card-title">Conclusions & Future Work</div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>Geography matters:</strong> Spatial proximity drives diffusion (R²=0.884).</li>
+                        <li><strong>Predictive Power:</strong> Network models forecast hotspots 5-6x better than random.</li>
+                        <li><strong>Policy:</strong> Regional coordination is required; single-state laws fail due to network redundancy.</li>
+                    </ul>
+                    <p style="margin-top: 10px; font-weight: bold;">Future Work:</p>
+                    <ul>
+                        <li>Incorporate PDMP implementation dates.</li>
+                        <li>Model county-to-county border spillover.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Data Source: CDC Opioid Dispensing Rate Data (2006-2023) • Methodology: Spatial Autoregressive Modeling & Network Analysis
+        </div>
+    </div>
+</body>
+</html>

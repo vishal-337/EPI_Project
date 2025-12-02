@@ -14,28 +14,21 @@ def main():
 
     df = pd.read_csv(edges_path)
     
-    # Create Graph
     G = nx.DiGraph()
     for _, row in df.iterrows():
         G.add_edge(row['source_fips'], row['target_fips'], weight=row['weight'])
         
-    # 1. Out-Degree Centrality
     out_degree = {}
     for node in G.nodes():
         weight_sum = sum(data['weight'] for _, _, data in G.out_edges(node, data=True))
         out_degree[node] = weight_sum
         
-    # 2. Eigenvector Centrality
     try:
         eigen = nx.eigenvector_centrality(G, weight='weight', max_iter=1000)
     except:
-        eigen = nx.eigenvector_centrality(G, max_iter=1000) # Fallback
+        eigen = nx.eigenvector_centrality(G, max_iter=1000)
         
-    # Prepare DataFrame
-    # We need to map FIPS back to names and states
-    # The edges df has this info, let's create a lookup
     fips_meta = df[["source_fips", "source_name", "STATE_ABBREV"]].drop_duplicates("source_fips").set_index("source_fips")
-    # Also need target fips metadata if they are not in sources (unlikely for high influence but possible)
     target_meta = df[["target_fips", "target_name", "STATE_ABBREV"]].drop_duplicates("target_fips").set_index("target_fips")
     meta = fips_meta.combine_first(target_meta)
     
@@ -57,7 +50,6 @@ def main():
     
     ranking.to_csv(os.path.join(OUT, "county_influence_rankings.csv"), index=False)
     
-    # Plot Top 10 Overall
     top10 = ranking.head(10).sort_values("influence_score", ascending=True)
     
     plt.figure(figsize=(10, 6))
